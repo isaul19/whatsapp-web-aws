@@ -16,8 +16,8 @@ interface Options {
 }
 
 export class S3Store {
-  private s3Client!: S3Client;
-  private s3Store!: Store;
+  private s3Client: S3Client;
+  private s3Store: Store;
 
   private AWS_REGION: string;
   private AWS_BUCKET_NAME: string;

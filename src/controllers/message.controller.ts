@@ -1,5 +1,7 @@
 import { Request, Response } from "express";
+
 import { MessageService } from "@services/message.service";
+import { handleError } from "@errors/handle.error";
 
 export class MessageController {
   private messageService: MessageService;
@@ -9,7 +11,11 @@ export class MessageController {
   }
 
   public sendMessage = async (req: Request, res: Response) => {
-    const response = await this.messageService.sendMessage();
-    return res.status(200).json({ message: "send message successfully", data: response });
+    try {
+      const response = await this.messageService.sendMessage(req.body);
+      return res.status(200).json({ message: "send message successfully", data: response });
+    } catch (error) {
+      handleError(res, error);
+    }
   };
 }

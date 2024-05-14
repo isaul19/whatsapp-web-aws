@@ -1,4 +1,5 @@
 import express from "express";
+import cors from "cors";
 
 interface Options {
   PORT: number;
@@ -25,6 +26,7 @@ export class Server {
   private mountMiddlewares = () => {
     this.app.use(express.json());
     this.app.use(express.urlencoded({ extended: true }));
+    this.app.use(cors());
   };
 
   public start = () => {

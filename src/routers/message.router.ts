@@ -2,6 +2,8 @@ import { Router } from "express";
 
 import { MessageController } from "@controllers/message.controller";
 import { MessageService } from "@services/message.service";
+import { dtoValidator } from "@validators/_common/dto.validator";
+import { SendMessageDto } from "@dtos/message/sendMessageDto.dto";
 
 export class MessageRouter {
   public static get router() {
@@ -10,7 +12,7 @@ export class MessageRouter {
     const messageService = new MessageService();
     const messageController = new MessageController(messageService);
 
-    router.use("/message", messageController.sendMessage);
+    router.post("/", dtoValidator(SendMessageDto), messageController.sendMessage);
 
     return router;
   }
