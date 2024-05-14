@@ -18,18 +18,18 @@ export class Server {
     this.mountRoutes();
   }
 
-  private mountRoutes() {
-    this.app.use(this.APP_ROUTER);
-  }
+  private mountRoutes = () => {
+    this.app.use("/api", this.APP_ROUTER);
+  };
 
-  private mountMiddlewares() {
+  private mountMiddlewares = () => {
     this.app.use(express.json());
     this.app.use(express.urlencoded({ extended: true }));
-  }
+  };
 
-  public start() {
+  public start = () => {
     this.app.listen(this.PORT, () => {
       console.log(`Server running on port ${this.PORT}`);
     });
-  }
+  };
 }
