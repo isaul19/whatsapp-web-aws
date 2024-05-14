@@ -1,7 +1,7 @@
 import { Client } from "whatsapp-web.js";
 
 import { Whatsapp } from "@boostrap/whatsapp.boostrap";
-import { SendMessageDto } from "@dtos/message/sendMessageDto.dto";
+import { SendMessageDto } from "@dtos/message/send-message.dto";
 
 export class MessageService {
   private whatsappClient: Client;

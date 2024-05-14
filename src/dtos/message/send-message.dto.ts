@@ -1,4 +1,4 @@
-import { IsInt, IsPositive, IsString, Matches } from "class-validator";
+import { IsInt, IsPositive, IsString } from "class-validator";
 
 export class SendMessageDto {
   @IsInt()

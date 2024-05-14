@@ -3,7 +3,7 @@ import { Router } from "express";
 import { MessageController } from "@controllers/message.controller";
 import { MessageService } from "@services/message.service";
 import { dtoValidator } from "@validators/_common/dto.validator";
-import { SendMessageDto } from "@dtos/message/sendMessageDto.dto";
+import { SendMessageDto } from "@dtos/message/send-message.dto";
 
 export class MessageRouter {
   public static get router() {

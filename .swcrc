@@ -17,6 +17,7 @@
       "@boostrap/*": ["./src/boostrap/*"],
       "@adapters/*": ["./src/config/adapters/*"],
       "@errors/*": ["./src/config/errors/*"],
+      "@interfaces/*": ["./src/config/interfaces/*"],
       "@routers/*": ["./src/routers/*"],
       "@controllers/*": ["./src/controllers/*"],
       "@services/*": ["./src/services/*"],
