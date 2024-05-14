@@ -1,12 +1,14 @@
-import { Client, RemoteAuth, Store } from "whatsapp-web.js";
+import { Client, RemoteAuth } from "whatsapp-web.js";
+import { S3Store } from "./s3-store.bootrap";
+import qrcode from "qrcode";
 
 interface Options {
   WS_CLIENT_ID: string;
-  s3Store: Store;
+  s3Store: S3Store;
 }
 
 export class Whatsapp {
-  private s3Store: Store;
+  private s3Store: S3Store;
   private WS_CLIENT_ID: string;
   public static client: Client;
 
@@ -17,13 +19,15 @@ export class Whatsapp {
     this.mountClient();
   }
 
-  private mountClient() {
+  private mountClient = () => {
+    const SESSION_DIR = "./auth_session";
+
     Whatsapp.client = new Client({
       authStrategy: new RemoteAuth({
         clientId: this.WS_CLIENT_ID,
-        dataPath: "./.wwebjs_auth",
         backupSyncIntervalMs: 600000,
-        store: this.s3Store,
+        store: this.s3Store.store,
+        dataPath: SESSION_DIR,
       }),
       webVersionCache: {
         type: "remote",
@@ -31,31 +35,26 @@ export class Whatsapp {
           "https://raw.githubusercontent.com/wppconnect-team/wa-version/main/html/2.2412.54.html",
       },
     });
-  }
+  };
 
-  public start(): Promise<boolean> {
+  public start = async (): Promise<boolean> => {
     return new Promise((resolve, reject) => {
       Whatsapp.client.initialize();
 
-      Whatsapp.client.on("ready", () => {
-        console.log("success whatsapp connected");
+      Whatsapp.client.on("qr", async (qrCode) => {
+        console.log("Scan qr code in to s3 bucket");
+        const qrImage = await qrcode.toDataURL(qrCode);
+        await this.s3Store.uploadQrCodeToS3(qrImage);
+      });
+
+      Whatsapp.client.on("ready", async () => {
         resolve(true);
       });
 
       Whatsapp.client.on("auth_failure", (msg) => {
-        console.error("failed whatsapp authentication", msg);
+        console.error("Authentication failed:", msg);
         reject(false);
       });
-
-      Whatsapp.client.on("error", (error) => {
-        console.error("WhatsApp client error", error);
-        reject(false);
-      });
-
-      setTimeout(() => {
-        console.error("WhatsApp client connection timeout");
-        reject(false);
-      }, 1000 * 30); // seconds
     });
-  }
+  };
 }

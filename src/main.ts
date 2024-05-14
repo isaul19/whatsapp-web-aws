@@ -14,7 +14,7 @@ const main = async () => {
 
   const whatsapp = new Whatsapp({
     WS_CLIENT_ID: Env.WS_CLIENT_ID,
-    s3Store: s3Store.store,
+    s3Store: s3Store,
   });
 
   const server = new Server({

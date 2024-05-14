@@ -1,3 +1,4 @@
 node_modules/
+auth_session/
 dist/
 .env
