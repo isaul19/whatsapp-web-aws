@@ -20,7 +20,7 @@ export class Whatsapp {
   }
 
   private mountClient = () => {
-    const SESSION_DIR = "./auth_session";
+    const SESSION_DIR = ".auth_session";
 
     Whatsapp.client = new Client({
       authStrategy: new RemoteAuth({
