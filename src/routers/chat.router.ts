@@ -11,7 +11,8 @@ export class ChatRouter {
     const chatController = new ChatController(chatService);
 
     router.get("/", chatController.listAllChats);
-    router.get("/:phone", getChatByPhoneValidator, chatController.getChatByPhone);
+    router.get("/by-phone/:phone", getChatByPhoneValidator, chatController.getChatByPhone);
+    router.get("/me", chatController.getMyChat);
 
     return router;
   }

@@ -18,4 +18,13 @@ export class MessageController {
       handleError(res, error);
     }
   };
+
+  public sendMessageFromMe = async (req: Request, res: Response) => {
+    try {
+      const response = await this.messageService.sendMessageFromMe(req.body);
+      return res.status(200).json({ message: "send message from me successfully", data: response });
+    } catch (error) {
+      handleError(res, error);
+    }
+  };
 }

@@ -26,4 +26,13 @@ export class ChatController {
       handleError(res, error);
     }
   };
+
+  public getMyChat = async (req: Request, res: Response) => {
+    try {
+      const response = await this.chatService.getMyChat();
+      res.status(200).json({ message: "get my chat successfully", data: response });
+    } catch (error) {
+      handleError(res, error);
+    }
+  };
 }

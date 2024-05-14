@@ -14,18 +14,24 @@ export class ChatService {
   public listAllChats = async (): Promise<ChatLowData[]> => {
     const chats = await this.whatsappClient.getChats();
 
-    const idsAndName = chats.map((chat, index) => ({
+    const chatsLow = chats.map((chat, index) => ({
       order: index + 1,
       id: chat.id.user,
       name: chat.name,
     }));
 
-    return idsAndName;
+    return chatsLow;
   };
 
   public getChatByPhone = async (getChatByIdDto: GetChatByPhoneDto): Promise<Chat> => {
     const { phone } = getChatByIdDto;
     const chat = await this.whatsappClient.getChatById(`${phone}@c.us`);
     return chat;
+  };
+
+  public getMyChat = async (): Promise<Chat> => {
+    const chats = await this.whatsappClient.getChats();
+    const myChat = chats.find((chat) => chat.id.user === this.whatsappClient.info.wid.user);
+    return myChat;
   };
 }
