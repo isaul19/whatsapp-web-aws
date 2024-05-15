@@ -29,6 +29,7 @@
     "env-var": "7.4.2",
     "express": "4.19.2",
     "qrcode": "1.5.3",
+    "reflect-metadata": "^0.2.2",
     "typescript": "5.2.2",
     "whatsapp-web.js": "1.23.0",
     "wwebjs-aws-s3": "1.0.2"

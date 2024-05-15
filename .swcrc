@@ -22,7 +22,8 @@
       "@controllers/*": ["./src/controllers/*"],
       "@services/*": ["./src/services/*"],
       "@dtos/*": ["./src/dtos/*"],
-      "@validators/*": ["./src/middlewares/validators/*"]
+      "@validators/*": ["./src/middlewares/validators/*"],
+      "@utils/*": ["./src/utils/*"]
     }
   },
   "module": {

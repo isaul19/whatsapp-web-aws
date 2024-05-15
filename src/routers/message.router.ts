@@ -2,7 +2,7 @@ import { Router } from "express";
 
 import { MessageController } from "@controllers/message.controller";
 import { MessageService } from "@services/message.service";
-import { dtoValidator } from "@validators/_common/dto.validator";
+import { bodyValidator } from "@validators/_common/body.validator";
 import { SendMessageDto } from "@dtos/message/send-message.dto";
 import { SendMessageFromMeDto } from "@dtos/message/send-message-from-me.dto";
 
@@ -13,8 +13,8 @@ export class MessageRouter {
     const messageService = new MessageService();
     const messageController = new MessageController(messageService);
 
-    router.post("/", dtoValidator(SendMessageDto), messageController.sendMessage);
-    router.post("/from-me", dtoValidator(SendMessageFromMeDto), messageController.sendMessageFromMe);
+    router.post("/", bodyValidator(SendMessageDto), messageController.sendMessage);
+    router.post("/from-me", bodyValidator(SendMessageFromMeDto), messageController.sendMessageFromMe);
 
     return router;
   }

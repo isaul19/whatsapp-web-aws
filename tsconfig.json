@@ -106,6 +106,7 @@
     // "skipDefaultLibCheck": true,                      /* Skip type checking .d.ts files that are included with TypeScript. */
     "skipLibCheck": true /* Skip type checking all .d.ts files. */,
     "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
     "paths": {
       "@boostrap/*": ["./src/boostrap/*"],
       "@adapters/*": ["./src/config/adapters/*"],
@@ -115,7 +116,8 @@
       "@controllers/*": ["./src/controllers/*"],
       "@services/*": ["./src/services/*"],
       "@dtos/*": ["./src/dtos/*"],
-      "@validators/*": ["./src/middlewares/validators/*"]
+      "@validators/*": ["./src/middlewares/validators/*"],
+      "@utils/*": ["./src/utils/*"]
     }
   },
   "include": ["./src/**/*.ts"],
