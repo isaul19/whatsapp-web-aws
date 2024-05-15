@@ -1,11 +1,14 @@
-import { Matches } from "class-validator";
+import { IsString, Matches, MinLength } from "class-validator";
 import { Type } from "class-transformer";
 
 import { Regexp } from "@utils/regexp.util";
-import { SendMessageFromMeDto } from "./send-message-from-me.dto";
 
-export class SendMessageDto extends SendMessageFromMeDto {
+export class SendMessageDto {
   @Matches(Regexp.phone, { message: "The phone number must have at least 11 numeric digits" })
   @Type(() => Number)
   phone: number;
+
+  @IsString()
+  @MinLength(2)
+  message: string;
 }

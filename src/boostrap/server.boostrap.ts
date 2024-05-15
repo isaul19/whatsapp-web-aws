@@ -1,6 +1,8 @@
 import express from "express";
 import cors from "cors";
 
+import { inicializateDocs } from "@docs/swagger";
+
 interface Options {
   PORT: number;
   APP_ROUTER: express.Router;
@@ -33,5 +35,7 @@ export class Server {
     this.app.listen(this.PORT, () => {
       console.log(`Server running on port ${this.PORT}`);
     });
+
+    inicializateDocs(this.app);
   };
 }

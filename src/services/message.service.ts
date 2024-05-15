@@ -37,8 +37,8 @@ export class MessageService {
     await this.whatsappClient.sendMessage(myId, message);
   };
 
-  public sendMessageToContactOrder = async (sendMessageToContactDto: SendMessageByContactOrderDto) => {
-    const { order, message } = sendMessageToContactDto;
+  public sendMessageToContactOrder = async (sendMessageByContactOrderDto: SendMessageByContactOrderDto) => {
+    const { order, message } = sendMessageByContactOrderDto;
     const myContact = await this.contactService.getContactByOrder({ order });
 
     await this.whatsappClient.sendMessage(`${myContact.phone}@c.us`, message);

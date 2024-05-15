@@ -23,7 +23,8 @@
       "@services/*": ["./src/services/*"],
       "@dtos/*": ["./src/dtos/*"],
       "@validators/*": ["./src/middlewares/validators/*"],
-      "@utils/*": ["./src/utils/*"]
+      "@utils/*": ["./src/utils/*"],
+      "@docs/*": ["./src/config/docs/*"]
     }
   },
   "module": {
