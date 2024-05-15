@@ -4,7 +4,6 @@ import { Whatsapp } from "@boostrap/whatsapp.boostrap";
 import { Env } from "@adapters/env.adapter";
 import { AppRouter } from "@routers/app.router";
 import { S3Store } from "@boostrap/s3-store.bootrap";
-import { highlightedLog } from "@utils/log.util";
 
 const main = async () => {
   const s3Store = new S3Store({
@@ -28,7 +27,7 @@ const main = async () => {
     await whatsapp.start();
     server.start();
   } catch (error) {
-    highlightedLog("Error to start application");
+    console.log(error);
   }
 };
 
