@@ -18,7 +18,8 @@
     "@types/express": "4.17.21",
     "@types/node": "20.8.9",
     "@types/qrcode": "1.5.5",
-    "nodemon": "3.0.1"
+    "nodemon": "3.0.1",
+    "typescript": "5.2.2"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "3.575.0",
@@ -30,7 +31,6 @@
     "express": "4.19.2",
     "qrcode": "1.5.3",
     "reflect-metadata": "0.2.2",
-    "typescript": "5.2.2",
     "whatsapp-web.js": "1.23.0",
     "wwebjs-aws-s3": "1.0.2"
   }

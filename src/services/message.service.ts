@@ -1,11 +1,15 @@
 import { Client } from "whatsapp-web.js";
 
 import { Whatsapp } from "@boostrap/whatsapp.boostrap";
+
 import { SendMessageDto } from "@dtos/message/send-message.dto";
-import { ChatService } from "./chat.service";
 import { SendMessageFromMeDto } from "@dtos/message/send-message-from-me.dto";
-import { ContactService } from "./contact.service";
-import { SendMessageToContactDto } from "@dtos/message/send-message-to-contact.dto";
+import { SendMessageByContactOrderDto } from "@dtos/message/send-message-by-contact-order.dto";
+import { SendMessageByContactNameDto } from "@dtos/message/send-message-by-contact-name.dto";
+
+import { ChatService } from "@services/chat.service";
+import { ContactService } from "@services/contact.service";
+import { CustomError } from "@errors/custom.error";
 
 export class MessageService {
   private whatsappClient: Client;
@@ -33,10 +37,21 @@ export class MessageService {
     await this.whatsappClient.sendMessage(myId, message);
   };
 
-  public sendMessageToContact = async (sendMessageToContactDto: SendMessageToContactDto) => {
+  public sendMessageToContactOrder = async (sendMessageToContactDto: SendMessageByContactOrderDto) => {
     const { order, message } = sendMessageToContactDto;
     const myContact = await this.contactService.getContactByOrder({ order });
 
-    await this.whatsappClient.sendMessage(`${myContact.id}@c.us`, message);
+    await this.whatsappClient.sendMessage(`${myContact.phone}@c.us`, message);
+  };
+
+  public sendMessageByContactName = async (sendMessageByContactNameDto: SendMessageByContactNameDto) => {
+    const { name, message } = sendMessageByContactNameDto;
+    const myContact = await this.contactService.searchContact({ name });
+
+    if (myContact.length >= 2) throw CustomError.badRequest("Exists two contact with similarity names");
+
+    const { phone } = myContact[0];
+
+    await this.whatsappClient.sendMessage(`${phone}@c.us`, message);
   };
 }

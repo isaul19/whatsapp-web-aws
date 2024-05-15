@@ -15,13 +15,13 @@ export class ContactService {
     const contacts = await this.whatsappClient.getContacts();
     const contactUs = contacts.filter((contact) => contact.id.server === "c.us" && contact.isMyContact);
 
-    const contactsLow = contactUs.map((contact, index) => ({
+    const contactsLowInfo = contactUs.map((contact, index) => ({
       order: index + 1,
-      id: contact.id.user,
+      phone: contact.id.user,
       name: contact.name,
     }));
 
-    return contactsLow;
+    return contactsLowInfo;
   };
 
   public getContactByOrder = async (getContactByOrder: GetContactByOrderDto) => {
