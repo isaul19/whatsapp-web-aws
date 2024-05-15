@@ -12,8 +12,26 @@ export class ContactController {
 
   public listAllContacts = async (req: Request, res: Response) => {
     try {
-      const contacts = await this.contactService.listAllContacts();
-      res.status(200).json({ message: "get contacts successfully", data: contacts });
+      const response = await this.contactService.listAllContacts();
+      res.status(200).json({ message: "get contacts successfully", data: response });
+    } catch (error) {
+      handleError(res, error);
+    }
+  };
+
+  public getContactByOrder = async (req: Request, res: Response) => {
+    try {
+      const response = await this.contactService.getContactByOrder(req.body);
+      res.status(200).json({ message: "get contact by order successfully", data: response });
+    } catch (error) {
+      handleError(res, error);
+    }
+  };
+
+  public searchContact = async (req: Request, res: Response) => {
+    try {
+      const response = await this.contactService.searchContact(req.body);
+      res.status(200).json({ message: "search contact successfully", data: response });
     } catch (error) {
       handleError(res, error);
     }

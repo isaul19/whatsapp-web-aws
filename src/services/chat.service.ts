@@ -11,7 +11,7 @@ export class ChatService {
     this.whatsappClient = Whatsapp.client;
   }
 
-  public listAllChats = async (): Promise<ChatLowData[]> => {
+  public listAllChats = async () => {
     const chats = await this.whatsappClient.getChats();
 
     const chatsLow = chats.map((chat, index) => ({

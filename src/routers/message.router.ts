@@ -5,6 +5,7 @@ import { MessageService } from "@services/message.service";
 import { bodyValidator } from "@validators/_common/body.validator";
 import { SendMessageDto } from "@dtos/message/send-message.dto";
 import { SendMessageFromMeDto } from "@dtos/message/send-message-from-me.dto";
+import { SendMessageToContactDto } from "@dtos/message/send-message-to-contact.dto";
 
 export class MessageRouter {
   public static get router() {
@@ -15,6 +16,7 @@ export class MessageRouter {
 
     router.post("/", bodyValidator(SendMessageDto), messageController.sendMessage);
     router.post("/from-me", bodyValidator(SendMessageFromMeDto), messageController.sendMessageFromMe);
+    router.post("/to-contact", bodyValidator(SendMessageToContactDto), messageController.sendMessageToContact);
 
     return router;
   }

@@ -1,6 +1,11 @@
-import { ContactController } from "@controllers/contact.controller";
-import { ContactService } from "@services/contact.service";
 import { Router } from "express";
+
+import { ContactController } from "@controllers/contact.controller";
+import { GetContactByOrderDto } from "@dtos/contact/get-contact-by-order.dto";
+import { ContactService } from "@services/contact.service";
+import { paramsValidator } from "@validators/_common/params.validator";
+import { queryValidator } from "@validators/_common/query.validator";
+import { SearchContactDto } from "@dtos/contact/search-contact.dto";
 
 export class ContactRouter {
   public static get router() {
@@ -10,6 +15,8 @@ export class ContactRouter {
     const contactController = new ContactController(contactService);
 
     router.get("/", contactController.listAllContacts);
+    router.get("/by-order/:order", paramsValidator(GetContactByOrderDto), contactController.getContactByOrder);
+    router.get("/search", queryValidator(SearchContactDto), contactController.searchContact);
 
     return router;
   }
