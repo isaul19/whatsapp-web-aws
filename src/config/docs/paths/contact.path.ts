@@ -13,6 +13,29 @@ export const contactPath: Paths = {
     },
   },
 
+  "/api/contact/by-phone/{phone}": {
+    get: {
+      tags: ["contact"],
+      summary: "Get contact by phone",
+      parameters: [
+        {
+          name: "phone",
+          in: "path",
+          required: true,
+          schema: {
+            type: "string",
+            example: "51777888999",
+          },
+        },
+      ],
+      responses: {
+        "200": {
+          description: "get contact by phone successfully",
+        },
+      },
+    },
+  },
+
   "/api/contact/by-order/{order}": {
     get: {
       tags: ["contact"],
@@ -24,7 +47,7 @@ export const contactPath: Paths = {
           required: true,
           schema: {
             type: "string",
-            example: 1,
+            example: "1",
           },
         },
       ],
@@ -36,18 +59,18 @@ export const contactPath: Paths = {
     },
   },
 
-  "/api/contact/by-name": {
+  "/api/contact/by-name/{name}": {
     get: {
       tags: ["contact"],
       summary: "Get contact by name",
       parameters: [
         {
           name: "name",
-          in: "query",
+          in: "path",
           required: true,
           schema: {
             type: "string",
-            example: "Sister",
+            example: "contact name",
           },
         },
       ],

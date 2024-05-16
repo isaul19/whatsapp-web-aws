@@ -3,6 +3,7 @@ import { Client } from "whatsapp-web.js";
 import { Whatsapp } from "@boostrap/whatsapp.boostrap";
 import { GetChatByPhoneDto } from "@dtos/chat/get-chat-by-phone.dto";
 import { Parse } from "@utils/parse.util";
+import { CustomError } from "@errors/custom.error";
 
 export class ChatService {
   private whatsappClient: Client;
@@ -14,19 +15,32 @@ export class ChatService {
   public listAllChats = async () => {
     const chats = await this.whatsappClient.getChats();
 
-    const chatsLowInfo = chats.map((chat, index) => ({
-      order: index + 1,
-      phone: chat.id.user,
-      name: chat.name,
-    }));
+    const chatsLowInfo = chats
+      .sort((a, b) => b.timestamp - a.timestamp)
+      .map((chat, i) => ({
+        order: i + 1,
+        phone: chat.id.user,
+        name: chat.name,
+        lastMessage: chat.lastMessage?.body || "",
+      }));
 
     return chatsLowInfo;
   };
 
   public getChatByPhone = async (getChatByIdDto: GetChatByPhoneDto) => {
     const { phone } = getChatByIdDto;
+
     const chat = await this.whatsappClient.getChatById(Parse.phone(phone));
-    return chat;
+    const messages = await chat.fetchMessages({
+      limit: 10,
+    });
+
+    const messageText = messages.map((message) => ({
+      message: message.body,
+      isMe: message.fromMe,
+    }));
+
+    return messageText;
   };
 
   public getMyChat = async () => {

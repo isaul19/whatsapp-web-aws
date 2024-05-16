@@ -7,5 +7,5 @@ export class CreateGroupDto {
   groupName: string;
 
   @Matches(Regexp.phone, { each: true, message: "The phone number must have at least 11 numeric digits" })
-  participantsPhones: number[];
+  participantsPhones: string[];
 }

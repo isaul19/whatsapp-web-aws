@@ -36,4 +36,31 @@ export class GroupController {
       handleError(res, error);
     }
   };
+
+  public getGroupByOrder = async (req: Request, res: Response) => {
+    try {
+      const response = await this.groupService.getGroupByOrder(req.body);
+      res.status(200).json({ message: "get group by order successfully", data: response });
+    } catch (error) {
+      handleError(res, error);
+    }
+  };
+
+  public getGroupByPhone = async (req: Request, res: Response) => {
+    try {
+      const response = await this.groupService.getGroupByPhone(req.body);
+      res.status(200).json({ message: "get group by phone successfully", data: response });
+    } catch (error) {
+      handleError(res, error);
+    }
+  };
+
+  public getGroupByName = async (req: Request, res: Response) => {
+    try {
+      const response = await this.groupService.getGroupByName(req.body);
+      res.status(200).json({ message: "get group by name successfully", data: response });
+    } catch (error) {
+      handleError(res, error);
+    }
+  };
 }

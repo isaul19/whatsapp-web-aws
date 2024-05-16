@@ -28,9 +28,18 @@ export class ContactController {
     }
   };
 
-  public searchContact = async (req: Request, res: Response) => {
+  public getContactByPhone = async (req: Request, res: Response) => {
     try {
-      const response = await this.contactService.searchContact(req.body);
+      const response = await this.contactService.getContactByPhone(req.body);
+      res.status(200).json({ message: "get contact by phone successfully", data: response });
+    } catch (error) {
+      handleError(res, error);
+    }
+  };
+
+  public getContactByName = async (req: Request, res: Response) => {
+    try {
+      const response = await this.contactService.getContactByName(req.body);
       res.status(200).json({ message: "search contact successfully", data: response });
     } catch (error) {
       handleError(res, error);
