@@ -36,4 +36,4 @@ pnpm run dev
 
 6. Go to your S3 bucket, there a QR code in image format was saved, scan it.
 
-7. After about 20 seconds aprox, the server will be up, and you can now test the endpoints into documentation.
+7. After about 20 seconds aprox, the server will be up, and you can now test the endpoints into documentation http://localhost:3000/docs.
