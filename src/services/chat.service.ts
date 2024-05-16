@@ -2,6 +2,7 @@ import { Client } from "whatsapp-web.js";
 
 import { Whatsapp } from "@boostrap/whatsapp.boostrap";
 import { GetChatByPhoneDto } from "@dtos/chat/get-chat-by-phone.dto";
+import { Parse } from "@utils/parse.util";
 
 export class ChatService {
   private whatsappClient: Client;
@@ -24,7 +25,7 @@ export class ChatService {
 
   public getChatByPhone = async (getChatByIdDto: GetChatByPhoneDto) => {
     const { phone } = getChatByIdDto;
-    const chat = await this.whatsappClient.getChatById(`${phone}@c.us`);
+    const chat = await this.whatsappClient.getChatById(Parse.phone(phone));
     return chat;
   };
 

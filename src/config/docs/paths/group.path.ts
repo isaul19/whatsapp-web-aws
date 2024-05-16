@@ -1,7 +1,16 @@
 import { Paths } from "swagger-jsdoc";
 
 export const groupPath: Paths = {
-  "/api/group/": {
+  "/api/group": {
+    get: {
+      tags: ["group"],
+      summary: "Get all groups",
+      responses: {
+        "200": {
+          description: "get all groups successfully",
+        },
+      },
+    },
     post: {
       tags: ["group"],
       summary: "Create group",

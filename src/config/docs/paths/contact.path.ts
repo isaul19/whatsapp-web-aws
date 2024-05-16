@@ -1,7 +1,7 @@
 import { Paths } from "swagger-jsdoc";
 
 export const contactPath: Paths = {
-  "/api/contact/": {
+  "/api/contact": {
     get: {
       tags: ["contact"],
       summary: "Get all contacts",

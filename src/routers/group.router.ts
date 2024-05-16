@@ -12,6 +12,7 @@ export class GroupRouter {
     const groupService = new GroupService();
     const groupController = new GroupController(groupService);
 
+    router.get("/", groupController.listAllGroups);
     router.post("/", bodyValidator(CreateGroupDto), groupController.createGroup);
 
     return router;

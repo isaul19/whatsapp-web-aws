@@ -10,6 +10,7 @@ import { SendMessageByContactNameDto } from "@dtos/message/send-message-by-conta
 import { ChatService } from "@services/chat.service";
 import { ContactService } from "@services/contact.service";
 import { CustomError } from "@errors/custom.error";
+import { Parse } from "@utils/parse.util";
 
 export class MessageService {
   private whatsappClient: Client;
@@ -26,7 +27,7 @@ export class MessageService {
 
   public sendMessage = async (sendMessageDto: SendMessageDto): Promise<void> => {
     const { phone, message } = sendMessageDto;
-    await this.whatsappClient.sendMessage(`${phone}@c.us`, message);
+    await this.whatsappClient.sendMessage(Parse.phone(phone), message);
   };
 
   public sendMessageFromMe = async (sendMessageFromMeDto: SendMessageFromMeDto): Promise<void> => {
@@ -39,9 +40,9 @@ export class MessageService {
 
   public sendMessageToContactOrder = async (sendMessageByContactOrderDto: SendMessageByContactOrderDto) => {
     const { order, message } = sendMessageByContactOrderDto;
-    const myContact = await this.contactService.getContactByOrder({ order });
+    const { phone } = await this.contactService.getContactByOrder({ order });
 
-    await this.whatsappClient.sendMessage(`${myContact.phone}@c.us`, message);
+    await this.whatsappClient.sendMessage(Parse.phone(+phone), message);
   };
 
   public sendMessageByContactName = async (sendMessageByContactNameDto: SendMessageByContactNameDto) => {
@@ -52,6 +53,6 @@ export class MessageService {
 
     const { phone } = myContact[0];
 
-    await this.whatsappClient.sendMessage(`${phone}@c.us`, message);
+    await this.whatsappClient.sendMessage(Parse.phone(+phone), message);
   };
 }
