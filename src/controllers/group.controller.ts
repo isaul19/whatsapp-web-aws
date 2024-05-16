@@ -30,8 +30,8 @@ export class GroupController {
 
   public addParticipantsGroup = async (req: Request, res: Response) => {
     try {
-      const response = await this.groupService.addParticipantsGroup(req.body);
-      return res.status(200).json({ message: "add participant group successfully", data: response });
+      await this.groupService.addParticipantsGroup(req.body);
+      return res.status(200).json({ message: "add participant group successfully" });
     } catch (error) {
       handleError(res, error);
     }
