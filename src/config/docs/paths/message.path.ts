@@ -148,6 +148,38 @@ export const messagePath: Paths = {
   //   },
   // },
 
+  "/api/message/by-contact-name/{name}": {
+    get: {
+      tags: ["message"],
+      summary: "Get message by contact name",
+      parameters: [
+        {
+          name: "name",
+          in: "path",
+          required: true,
+          schema: {
+            type: "string",
+            example: "contact name",
+          },
+        },
+        {
+          name: "limit",
+          in: "query",
+          required: false,
+          schema: {
+            type: "string",
+            example: "10",
+          },
+        },
+      ],
+      responses: {
+        "200": {
+          description: "get message by contact name successfully",
+        },
+      },
+    },
+  },
+
   "/api/message/by-contact-name": {
     post: {
       tags: ["message"],
@@ -213,6 +245,38 @@ export const messagePath: Paths = {
   //     },
   //   },
   // },
+
+  "/api/message/by-group-name/{name}": {
+    get: {
+      tags: ["message"],
+      summary: "Get message by group name",
+      parameters: [
+        {
+          name: "name",
+          in: "path",
+          required: true,
+          schema: {
+            type: "string",
+            example: "group name",
+          },
+        },
+        {
+          name: "limit",
+          in: "query",
+          required: false,
+          schema: {
+            type: "string",
+            example: "10",
+          },
+        },
+      ],
+      responses: {
+        "200": {
+          description: "get message by group name successfully",
+        },
+      },
+    },
+  },
 
   "/api/message/by-group-name": {
     post: {

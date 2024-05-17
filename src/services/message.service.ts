@@ -1,4 +1,4 @@
-import { Client } from "whatsapp-web.js";
+import { Client, GroupChat } from "whatsapp-web.js";
 
 import { Whatsapp } from "@boostrap/whatsapp.boostrap";
 import { ChatService } from "@services/chat.service";
@@ -15,7 +15,9 @@ import {
   SendMessageFromMeDto,
 } from "@dtos/message";
 import { GroupService } from "./group.service";
+import { PhoneDto } from "@dtos/_common/phone.dto";
 import { LimitDto } from "@dtos/_common/limit.dto";
+import { NameDto } from "@dtos/_common/name.dto";
 
 export class MessageService {
   private whatsappClient: Client;
@@ -91,13 +93,34 @@ export class MessageService {
     const myContact = await this.contactService.getContactByName({ name });
 
     if (myContact.length >= 2) throw CustomError.badRequest("Exists two contact with similarity names");
-
     const { phone } = myContact[0];
 
     await this.whatsappClient.sendMessage(Parse.phone(phone), message);
   };
 
-  public getMessagesByContactName = async () => {};
+  public getMessagesByContactName = async (nameDto: NameDto, limitDto: LimitDto) => {
+    const { name } = nameDto;
+    const limit = limitDto?.limit ?? 10;
+
+    const myContact = await this.contactService.getContactByName({ name });
+
+    if (myContact.length >= 2) throw CustomError.badRequest("Exists two contact with similarity names");
+    const { phone } = myContact[0];
+
+    const myContactChat = await this.chatService.getChatByPhone({ phone });
+
+    const messages = await myContactChat.fetchMessages({
+      limit: limit,
+    });
+
+    const messagesContent = messages.map((message) => ({
+      message: message.body,
+      isMe: message.fromMe,
+      date: Parse.date(message.timestamp),
+    }));
+
+    return messagesContent;
+  };
 
   public sendMessageByGroupOrder = async (sendMessageByGroupOrderDto: SendMessageByGroupOrder) => {
     const { order, message } = sendMessageByGroupOrderDto;
@@ -117,5 +140,27 @@ export class MessageService {
     await this.whatsappClient.sendMessage(Parse.phone(phone), message);
   };
 
-  public getMessagesByGroupName = async () => {};
+  public getMessagesByGroupName = async (nameDto: NameDto, limitDto: LimitDto) => {
+    const { name } = nameDto;
+    const limit = limitDto?.limit ?? 10;
+
+    const myGroup = await this.groupService.getGroupByName({ name });
+
+    if (myGroup.length >= 2) throw CustomError.badRequest("Exists two contact with similarity names");
+    const { phone } = myGroup[0];
+
+    const myGroupChat = await this.chatService.getChatByPhone({ phone });
+
+    const messages = await myGroupChat.fetchMessages({
+      limit: limit,
+    });
+
+    const messagesContent = messages.map((message) => ({
+      message: message.body,
+      isMe: message.fromMe,
+      date: Parse.date(message.timestamp),
+    }));
+
+    return messagesContent;
+  };
 }

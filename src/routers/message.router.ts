@@ -15,6 +15,7 @@ import {
 import { paramsValidator } from "@validators/_common/params.validator";
 import { queryValidator } from "@validators/_common/query.validator";
 import { LimitDto } from "@dtos/_common/limit.dto";
+import { NameDto } from "@dtos/_common/name.dto";
 
 export class MessageRouter {
   public static get router() {
@@ -47,9 +48,23 @@ export class MessageRouter {
       messageController.sendMessageByContactName,
     );
 
+    router.get(
+      "/by-contact-name/:name",
+      paramsValidator(NameDto),
+      queryValidator(LimitDto),
+      messageController.getMessagesByContactName,
+    );
+
     // router.post("/by-group-order", bodyValidator(SendMessageByGroupOrder), messageController.sendMessageByGroupOrder);
 
     router.post("/by-group-name", bodyValidator(SendMessageByGroupName), messageController.sendMessageByGroupName);
+
+    router.get(
+      "/by-group-name/:name",
+      paramsValidator(NameDto),
+      queryValidator(LimitDto),
+      messageController.getMessagesByGroupName,
+    );
 
     return router;
   }
