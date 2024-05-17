@@ -30,10 +30,10 @@ export class MessageController {
     }
   };
 
-  public sendMessageToContactOrder = async (req: Request, res: Response) => {
+  public sendMessageByContactOrder = async (req: Request, res: Response) => {
     const { bodyValidator } = req.body;
     try {
-      await this.messageService.sendMessageToContactOrder(bodyValidator);
+      await this.messageService.sendMessageByContactOrder(bodyValidator);
       return res.status(200).json({ message: "send message to contact successfully" });
     } catch (error) {
       handleError(res, error);
@@ -45,6 +45,26 @@ export class MessageController {
     try {
       await this.messageService.sendMessageByContactName(bodyValidator);
       return res.status(200).json({ message: "send message by contact name successfully" });
+    } catch (error) {
+      handleError(res, error);
+    }
+  };
+
+  public sendMessageByGroupOrder = async (req: Request, res: Response) => {
+    const { bodyValidator } = req.body;
+    try {
+      await this.messageService.sendMessageByGroupOrder(bodyValidator);
+      return res.status(200).json({ message: "send message to group successfully" });
+    } catch (error) {
+      handleError(res, error);
+    }
+  };
+
+  public sendMessageByGroupName = async (req: Request, res: Response) => {
+    const { bodyValidator } = req.body;
+    try {
+      await this.messageService.sendMessageByGroupName(bodyValidator);
+      return res.status(200).json({ message: "send message by group name successfully" });
     } catch (error) {
       handleError(res, error);
     }

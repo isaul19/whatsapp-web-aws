@@ -128,4 +128,70 @@ export const messagePath: Paths = {
       },
     },
   },
+
+  "/api/message/by-group-order": {
+    post: {
+      tags: ["message"],
+      summary: "Send message by group order",
+      requestBody: {
+        required: true,
+        content: {
+          "application/json": {
+            schema: {
+              type: "object",
+              properties: {
+                order: {
+                  type: "number",
+                  example: 1,
+                },
+                message: {
+                  type: "string",
+                  example: "Hello from documentation",
+                },
+              },
+              required: ["order", "message"],
+            },
+          },
+        },
+      },
+      responses: {
+        "200": {
+          description: "send message to group successfully",
+        },
+      },
+    },
+  },
+
+  "/api/message/by-group-name": {
+    post: {
+      tags: ["message"],
+      summary: "Send message by group name",
+      requestBody: {
+        required: true,
+        content: {
+          "application/json": {
+            schema: {
+              type: "object",
+              properties: {
+                name: {
+                  type: "string",
+                  example: "Family",
+                },
+                message: {
+                  type: "string",
+                  example: "Hello from documentation",
+                },
+              },
+              required: ["name", "message"],
+            },
+          },
+        },
+      },
+      responses: {
+        "200": {
+          description: "send message by group name successfully",
+        },
+      },
+    },
+  },
 };

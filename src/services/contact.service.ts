@@ -14,6 +14,7 @@ export class ContactService {
 
   public listAllContacts = async () => {
     const contacts = await this.whatsappClient.getContacts();
+
     const MyContacts = contacts.filter(
       (contact) => contact.id.server === AMERICAN_PHONE && contact.isMyContact && !contact.isGroup,
     );
