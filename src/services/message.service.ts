@@ -43,6 +43,21 @@ export class MessageService {
     await this.whatsappClient.sendMessage(myId, message);
   };
 
+  public getMessagesFromMe = async () => {
+    const myChat = await this.chatService.getMyChat();
+
+    const messages = await myChat.fetchMessages({
+      limit: 10,
+    });
+
+    const messagesContent = messages.map((message) => ({
+      message: message.body,
+      date: Parse.date(message.timestamp),
+    }));
+
+    return messagesContent;
+  };
+
   public sendMessageByContactOrder = async (sendMessageByContactOrderDto: SendMessageByContactOrderDto) => {
     const { order, message } = sendMessageByContactOrderDto;
     const { phone } = await this.contactService.getContactByOrder({ order });

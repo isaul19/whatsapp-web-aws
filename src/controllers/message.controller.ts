@@ -30,6 +30,15 @@ export class MessageController {
     }
   };
 
+  public getMessagesFromMe = async (req: Request, res: Response) => {
+    try {
+      const response = await this.messageService.getMessagesFromMe();
+      res.status(200).json({ message: "get messages from me successfully", data: response });
+    } catch (error) {
+      handleError(res, error);
+    }
+  };
+
   public sendMessageByContactOrder = async (req: Request, res: Response) => {
     const { bodyValidator } = req.body;
     try {

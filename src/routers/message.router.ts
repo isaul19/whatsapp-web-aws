@@ -21,6 +21,7 @@ export class MessageRouter {
 
     router.post("/", bodyValidator(SendMessageDto), messageController.sendMessage);
 
+    router.get("/from-me", messageController.getMessagesFromMe);
     router.post("/from-me", bodyValidator(SendMessageFromMeDto), messageController.sendMessageFromMe);
 
     router.get("/");

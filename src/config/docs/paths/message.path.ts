@@ -35,6 +35,15 @@ export const messagePath: Paths = {
   },
 
   "/api/message/from-me": {
+    get: {
+      tags: ["message"],
+      summary: "Get messages from me",
+      responses: {
+        "200": {
+          description: "get messages from me successfully",
+        },
+      },
+    },
     post: {
       tags: ["message"],
       summary: "Send message from me",
