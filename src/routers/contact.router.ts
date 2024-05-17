@@ -1,11 +1,9 @@
 import { Router } from "express";
 
 import { ContactController } from "@controllers/contact.controller";
-import { GetContactByOrderDto } from "@dtos/contact/get-contact-by-order.dto";
 import { ContactService } from "@services/contact.service";
 import { paramsValidator } from "@validators/_common/params.validator";
-import { GetContactByNameDto } from "@dtos/contact/get-contact-by-name.dto";
-import { GetContactByPhone } from "@dtos/contact/get-contact-by-phone.dto";
+import { GetContactByNameDto, GetContactByOrderDto, GetContactByPhone } from "@dtos/contact";
 
 export class ContactRouter {
   public static get router() {

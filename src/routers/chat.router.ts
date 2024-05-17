@@ -1,9 +1,10 @@
 import { Router } from "express";
 
 import { ChatController } from "@controllers/chat.controller";
-import { GetChatByPhoneDto } from "@dtos/chat/get-chat-by-phone.dto";
 import { ChatService } from "@services/chat.service";
 import { paramsValidator } from "@validators/_common/params.validator";
+
+import { GetChatByPhoneDto } from "@dtos/chat";
 
 export class ChatRouter {
   public static get router() {

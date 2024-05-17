@@ -5,9 +5,7 @@ import { CreateGroupDto } from "@dtos/group/create-group.dto";
 import { AddParticipantGroupDto } from "@dtos/group/add-participants-group.dto";
 import { Parse } from "@utils/parse.util";
 import { CustomError } from "@errors/custom.error";
-import { GetGroupByOrderDto } from "@dtos/group/get-group-by-order.dto";
-import { GetGroupByPhoneDto } from "@dtos/group/get-group-by-phone.dto";
-import { GetGroupByNameDto } from "@dtos/group/get-group-by-name.dto";
+import { GetGroupByNameDto, GetGroupByOrderDto, GetGroupByPhoneDto } from "@dtos/group";
 
 export class GroupService {
   private whatsappClient: Client;

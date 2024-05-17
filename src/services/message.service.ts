@@ -1,14 +1,16 @@
 import { Client } from "whatsapp-web.js";
 
 import { Whatsapp } from "@boostrap/whatsapp.boostrap";
-import { SendMessageDto } from "@dtos/message/send-message.dto";
-import { SendMessageFromMeDto } from "@dtos/message/send-message-from-me.dto";
-import { SendMessageByContactOrderDto } from "@dtos/message/send-message-by-contact-order.dto";
-import { SendMessageByContactNameDto } from "@dtos/message/send-message-by-contact-name.dto";
 import { ChatService } from "@services/chat.service";
 import { ContactService } from "@services/contact.service";
 import { CustomError } from "@errors/custom.error";
 import { Parse } from "@utils/parse.util";
+import {
+  SendMessageByContactNameDto,
+  SendMessageByContactOrderDto,
+  SendMessageDto,
+  SendMessageFromMeDto,
+} from "@dtos/message";
 
 export class MessageService {
   private whatsappClient: Client;

@@ -5,9 +5,7 @@ import { CreateGroupDto } from "@dtos/group/create-group.dto";
 import { GroupService } from "@services/group.service";
 import { bodyValidator } from "@validators/_common/body.validator";
 import { paramsValidator } from "@validators/_common/params.validator";
-import { GetGroupByOrderDto } from "@dtos/group/get-group-by-order.dto";
-import { GetGroupByPhoneDto } from "@dtos/group/get-group-by-phone.dto";
-import { GetGroupByNameDto } from "@dtos/group/get-group-by-name.dto";
+import { GetGroupByNameDto, GetGroupByOrderDto, GetGroupByPhoneDto } from "@dtos/group";
 
 export class GroupRouter {
   public static get router() {

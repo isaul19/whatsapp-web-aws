@@ -1,9 +1,8 @@
 import { Client } from "whatsapp-web.js";
 
 import { Whatsapp } from "@boostrap/whatsapp.boostrap";
-import { GetChatByPhoneDto } from "@dtos/chat/get-chat-by-phone.dto";
 import { Parse } from "@utils/parse.util";
-import { CustomError } from "@errors/custom.error";
+import { GetChatByPhoneDto } from "@dtos/chat";
 
 export class ChatService {
   private whatsappClient: Client;
