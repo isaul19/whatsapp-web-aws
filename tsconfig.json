@@ -119,7 +119,7 @@
       "@validators/*": ["./src/middlewares/validators/*"],
       "@utils/*": ["./src/utils/*"],
       "@docs/*": ["./src/config/docs/*"],
-      "@constants": ["./src/config/constants.ts"]
+      "@config/*": ["./src/config/*"]
     }
   },
   "include": ["./src/**/*.ts"],

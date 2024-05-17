@@ -2,8 +2,8 @@ import { Client } from "whatsapp-web.js";
 
 import { Whatsapp } from "@boostrap/whatsapp.boostrap";
 import { CustomError } from "@errors/custom.error";
-import { AMERICAN_PHONE } from "@constants";
 import { GetContactByNameDto, GetContactByOrderDto, GetContactByPhone } from "@dtos/contact";
+import { AMERICAN_PHONE } from "@config/constants";
 
 export class ContactService {
   private whatsappClient: Client;
