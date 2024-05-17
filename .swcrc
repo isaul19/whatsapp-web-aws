@@ -24,7 +24,8 @@
       "@dtos/*": ["./src/dtos/*"],
       "@validators/*": ["./src/middlewares/validators/*"],
       "@utils/*": ["./src/utils/*"],
-      "@docs/*": ["./src/config/docs/*"]
+      "@docs/*": ["./src/config/docs/*"],
+      "@constants": ["./src/config/constants.ts"]
     }
   },
   "module": {

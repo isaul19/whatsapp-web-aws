@@ -8,7 +8,6 @@ import { CustomError } from "@errors/custom.error";
 import { GetGroupByOrderDto } from "@dtos/group/get-group-by-order.dto";
 import { GetGroupByPhoneDto } from "@dtos/group/get-group-by-phone.dto";
 import { GetGroupByNameDto } from "@dtos/group/get-group-by-name.dto";
-import { Constants } from "@utils/constants.util";
 
 export class GroupService {
   private whatsappClient: Client;
