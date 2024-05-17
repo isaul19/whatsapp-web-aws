@@ -15,7 +15,7 @@ export class ContactRouter {
     router.get("/", contactController.listAllContacts);
 
     router.get("/by-phone/:phone", paramsValidator(GetContactByPhone), contactController.getContactByOrder);
-    router.get("/by-order/:order", paramsValidator(GetContactByOrderDto), contactController.getContactByOrder);
+    // router.get("/by-order/:order", paramsValidator(GetContactByOrderDto), contactController.getContactByOrder);
     router.get("/by-name/:name", paramsValidator(GetContactByNameDto), contactController.getContactByName);
 
     return router;

@@ -13,6 +13,8 @@ import {
   SendMessageFromMeDto,
 } from "@dtos/message";
 import { paramsValidator } from "@validators/_common/params.validator";
+import { queryValidator } from "@validators/_common/query.validator";
+import { LimitDto } from "@dtos/_common/limit.dto";
 
 export class MessageRouter {
   public static get router() {
@@ -21,17 +23,23 @@ export class MessageRouter {
     const messageService = new MessageService();
     const messageController = new MessageController(messageService);
 
-    router.get("/:phone", paramsValidator(GetMessageDto), messageController.getMessage);
+    router.get(
+      "/by-phone/:phone",
+      paramsValidator(GetMessageDto),
+      queryValidator(LimitDto),
+      messageController.getMessage,
+    );
+
     router.post("/", bodyValidator(SendMessageDto), messageController.sendMessage);
 
-    router.get("/from-me", messageController.getMessagesFromMe);
+    router.get("/from-me", queryValidator(LimitDto), messageController.getMessagesFromMe);
     router.post("/from-me", bodyValidator(SendMessageFromMeDto), messageController.sendMessageFromMe);
 
-    router.post(
-      "/by-contact-order",
-      bodyValidator(SendMessageByContactOrderDto),
-      messageController.sendMessageByContactOrder,
-    );
+    // router.post(
+    //   "/by-contact-order",
+    //   bodyValidator(SendMessageByContactOrderDto),
+    //   messageController.sendMessageByContactOrder,
+    // );
 
     router.post(
       "/by-contact-name",
@@ -39,7 +47,7 @@ export class MessageRouter {
       messageController.sendMessageByContactName,
     );
 
-    router.post("/by-group-order", bodyValidator(SendMessageByGroupOrder), messageController.sendMessageByGroupOrder);
+    // router.post("/by-group-order", bodyValidator(SendMessageByGroupOrder), messageController.sendMessageByGroupOrder);
 
     router.post("/by-group-name", bodyValidator(SendMessageByGroupName), messageController.sendMessageByGroupName);
 

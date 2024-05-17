@@ -70,28 +70,28 @@ export const groupPath: Paths = {
     },
   },
 
-  "/api/group/by-order/{order}": {
-    get: {
-      tags: ["group"],
-      summary: "Get group by order",
-      parameters: [
-        {
-          name: "order",
-          in: "path",
-          required: true,
-          schema: {
-            type: "string",
-            example: "1",
-          },
-        },
-      ],
-      responses: {
-        "200": {
-          description: "get group by order successfully",
-        },
-      },
-    },
-  },
+  // "/api/group/by-order/{order}": {
+  //   get: {
+  //     tags: ["group"],
+  //     summary: "Get group by order",
+  //     parameters: [
+  //       {
+  //         name: "order",
+  //         in: "path",
+  //         required: true,
+  //         schema: {
+  //           type: "string",
+  //           example: "1",
+  //         },
+  //       },
+  //     ],
+  //     responses: {
+  //       "200": {
+  //         description: "get group by order successfully",
+  //       },
+  //     },
+  //   },
+  // },
 
   "/api/group/by-name/{name}": {
     get: {

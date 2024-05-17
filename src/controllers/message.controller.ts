@@ -21,9 +21,9 @@ export class MessageController {
   };
 
   public getMessage = async (req: Request, res: Response) => {
-    const { paramsValidator } = req.body;
+    const { paramsValidator, queryValidator } = req.body;
     try {
-      const response = await this.messageService.getMessage(paramsValidator);
+      const response = await this.messageService.getMessage(paramsValidator, queryValidator);
       res.status(200).json({ message: "get message successfully", data: response });
     } catch (error) {
       handleError(res, error);
@@ -41,8 +41,11 @@ export class MessageController {
   };
 
   public getMessagesFromMe = async (req: Request, res: Response) => {
+    const { queryValidator } = req.body;
+    console.log("controller");
+
     try {
-      const response = await this.messageService.getMessagesFromMe();
+      const response = await this.messageService.getMessagesFromMe(queryValidator);
       res.status(200).json({ message: "get messages from me successfully", data: response });
     } catch (error) {
       handleError(res, error);

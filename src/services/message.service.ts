@@ -15,6 +15,7 @@ import {
   SendMessageFromMeDto,
 } from "@dtos/message";
 import { GroupService } from "./group.service";
+import { LimitDto } from "@dtos/_common/limit.dto";
 
 export class MessageService {
   private whatsappClient: Client;
@@ -36,12 +37,13 @@ export class MessageService {
     await this.whatsappClient.sendMessage(Parse.phone(phone), message);
   };
 
-  public getMessage = async (getMessageDto: GetMessageDto) => {
+  public getMessage = async (getMessageDto: GetMessageDto, limitDto: LimitDto) => {
     const { phone } = getMessageDto;
+    const limit = limitDto?.limit ?? 10;
 
     const chat = await this.chatService.getChatByPhone({ phone });
     const messages = await chat.fetchMessages({
-      limit: 10,
+      limit: limit,
     });
 
     const messagesContent = messages.map((message) => ({
@@ -61,11 +63,12 @@ export class MessageService {
     await this.whatsappClient.sendMessage(myId, message);
   };
 
-  public getMessagesFromMe = async () => {
+  public getMessagesFromMe = async (limitDto: LimitDto) => {
+    const limit = limitDto?.limit ?? 10;
     const myChat = await this.chatService.getMyChat();
 
     const messages = await myChat.fetchMessages({
-      limit: 10,
+      limit: limit,
     });
 
     const messagesContent = messages.map((message) => ({
@@ -94,6 +97,8 @@ export class MessageService {
     await this.whatsappClient.sendMessage(Parse.phone(phone), message);
   };
 
+  public getMessagesByContactName = async () => {};
+
   public sendMessageByGroupOrder = async (sendMessageByGroupOrderDto: SendMessageByGroupOrder) => {
     const { order, message } = sendMessageByGroupOrderDto;
     const { phone } = await this.groupService.getGroupByOrder({ order });
@@ -111,4 +116,6 @@ export class MessageService {
 
     await this.whatsappClient.sendMessage(Parse.phone(phone), message);
   };
+
+  public getMessagesByGroupName = async () => {};
 }

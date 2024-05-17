@@ -1,7 +1,7 @@
 import { Paths } from "swagger-jsdoc";
 
 export const messagePath: Paths = {
-  "/api/message/{phone}": {
+  "/api/message/by-phone/{phone}": {
     get: {
       tags: ["message"],
       summary: "Get message by phone number",
@@ -13,6 +13,15 @@ export const messagePath: Paths = {
           schema: {
             type: "string",
             example: "51777888999",
+          },
+        },
+        {
+          name: "limit",
+          in: "query",
+          required: false,
+          schema: {
+            type: "string",
+            example: "10",
           },
         },
       ],
@@ -61,6 +70,17 @@ export const messagePath: Paths = {
     get: {
       tags: ["message"],
       summary: "Get messages from me",
+      parameters: [
+        {
+          name: "limit",
+          in: "query",
+          required: false,
+          schema: {
+            type: "string",
+            example: "10",
+          },
+        },
+      ],
       responses: {
         "200": {
           description: "get messages from me successfully",
@@ -95,38 +115,38 @@ export const messagePath: Paths = {
     },
   },
 
-  "/api/message/by-contact-order": {
-    post: {
-      tags: ["message"],
-      summary: "Send message by contact order",
-      requestBody: {
-        required: true,
-        content: {
-          "application/json": {
-            schema: {
-              type: "object",
-              properties: {
-                order: {
-                  type: "number",
-                  example: 1,
-                },
-                message: {
-                  type: "string",
-                  example: "Hello from documentation",
-                },
-              },
-              required: ["order", "message"],
-            },
-          },
-        },
-      },
-      responses: {
-        "200": {
-          description: "send message to contact successfully",
-        },
-      },
-    },
-  },
+  // "/api/message/by-contact-order": {
+  //   post: {
+  //     tags: ["message"],
+  //     summary: "Send message by contact order",
+  //     requestBody: {
+  //       required: true,
+  //       content: {
+  //         "application/json": {
+  //           schema: {
+  //             type: "object",
+  //             properties: {
+  //               order: {
+  //                 type: "number",
+  //                 example: 1,
+  //               },
+  //               message: {
+  //                 type: "string",
+  //                 example: "Hello from documentation",
+  //               },
+  //             },
+  //             required: ["order", "message"],
+  //           },
+  //         },
+  //       },
+  //     },
+  //     responses: {
+  //       "200": {
+  //         description: "send message to contact successfully",
+  //       },
+  //     },
+  //   },
+  // },
 
   "/api/message/by-contact-name": {
     post: {
@@ -161,38 +181,38 @@ export const messagePath: Paths = {
     },
   },
 
-  "/api/message/by-group-order": {
-    post: {
-      tags: ["message"],
-      summary: "Send message by group order",
-      requestBody: {
-        required: true,
-        content: {
-          "application/json": {
-            schema: {
-              type: "object",
-              properties: {
-                order: {
-                  type: "number",
-                  example: 1,
-                },
-                message: {
-                  type: "string",
-                  example: "Hello from documentation",
-                },
-              },
-              required: ["order", "message"],
-            },
-          },
-        },
-      },
-      responses: {
-        "200": {
-          description: "send message to group successfully",
-        },
-      },
-    },
-  },
+  // "/api/message/by-group-order": {
+  //   post: {
+  //     tags: ["message"],
+  //     summary: "Send message by group order",
+  //     requestBody: {
+  //       required: true,
+  //       content: {
+  //         "application/json": {
+  //           schema: {
+  //             type: "object",
+  //             properties: {
+  //               order: {
+  //                 type: "number",
+  //                 example: 1,
+  //               },
+  //               message: {
+  //                 type: "string",
+  //                 example: "Hello from documentation",
+  //               },
+  //             },
+  //             required: ["order", "message"],
+  //           },
+  //         },
+  //       },
+  //     },
+  //     responses: {
+  //       "200": {
+  //         description: "send message to group successfully",
+  //       },
+  //     },
+  //   },
+  // },
 
   "/api/message/by-group-name": {
     post: {

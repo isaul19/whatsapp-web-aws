@@ -18,7 +18,7 @@ export class GroupRouter {
     router.post("/", bodyValidator(CreateGroupDto), groupController.createGroup);
 
     router.get("/by-phone/:phone", paramsValidator(GetGroupByPhoneDto), groupController.getGroupByPhone);
-    router.get("/by-order/:order", paramsValidator(GetGroupByOrderDto), groupController.getGroupByOrder);
+    // router.get("/by-order/:order", paramsValidator(GetGroupByOrderDto), groupController.getGroupByOrder);
     router.get("/by-name/:name", paramsValidator(GetGroupByNameDto), groupController.getGroupByName);
 
     return router;
