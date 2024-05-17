@@ -9,7 +9,7 @@ export const paramsValidator = <T extends object>(dto: ClassConstructor<T>) => {
     try {
       const dtoInstance = plainToClass(dto, req.params);
       await validateOrReject(dtoInstance);
-      req.body = dtoInstance;
+      req.body.paramsValidator = dtoInstance;
       next();
     } catch (error) {
       handleError(res, error);

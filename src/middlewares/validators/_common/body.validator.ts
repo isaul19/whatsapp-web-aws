@@ -9,7 +9,7 @@ export const bodyValidator = <T extends object>(dto: ClassConstructor<T>) => {
     try {
       const dtoInstance = plainToClass(dto, req.body);
       await validateOrReject(dtoInstance);
-      req.body = dtoInstance;
+      req.body.bodyValidator = dtoInstance;
       next();
     } catch (error) {
       handleError(res, error);

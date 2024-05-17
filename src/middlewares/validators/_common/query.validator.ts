@@ -9,7 +9,7 @@ export const queryValidator = <T extends object>(dto: ClassConstructor<T>) => {
     try {
       const dtoInstance = plainToClass(dto, req.query);
       await validateOrReject(dtoInstance);
-      req.body = dtoInstance;
+      req.body.queryValidator = dtoInstance;
       next();
     } catch (error) {
       handleError(res, error);

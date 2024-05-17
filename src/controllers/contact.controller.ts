@@ -20,8 +20,9 @@ export class ContactController {
   };
 
   public getContactByOrder = async (req: Request, res: Response) => {
+    const { paramsValidator } = req.body;
     try {
-      const response = await this.contactService.getContactByOrder(req.body);
+      const response = await this.contactService.getContactByOrder(paramsValidator);
       res.status(200).json({ message: "get contact by order successfully", data: response });
     } catch (error) {
       handleError(res, error);
@@ -29,8 +30,9 @@ export class ContactController {
   };
 
   public getContactByPhone = async (req: Request, res: Response) => {
+    const { paramsValidator } = req.body;
     try {
-      const response = await this.contactService.getContactByPhone(req.body);
+      const response = await this.contactService.getContactByPhone(paramsValidator);
       res.status(200).json({ message: "get contact by phone successfully", data: response });
     } catch (error) {
       handleError(res, error);
@@ -38,8 +40,9 @@ export class ContactController {
   };
 
   public getContactByName = async (req: Request, res: Response) => {
+    const { paramsValidator } = req.body;
     try {
-      const response = await this.contactService.getContactByName(req.body);
+      const response = await this.contactService.getContactByName(paramsValidator);
       res.status(200).json({ message: "search contact successfully", data: response });
     } catch (error) {
       handleError(res, error);

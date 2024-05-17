@@ -30,31 +30,32 @@ export class ChatService {
     const { phone } = getChatByIdDto;
 
     const chat = await this.whatsappClient.getChatById(Parse.phone(phone));
-    const messages = await chat.fetchMessages({
-      limit: 10,
-    });
+    // const messages = await chat.fetchMessages({
+    //   limit: 10,
+    // });
 
-    const messagesContent = messages.map((message) => ({
-      message: message.body,
-      isMe: message.fromMe,
-    }));
+    // const messagesContent = messages.map((message) => ({
+    //   message: message.body,
+    //   isMe: message.fromMe,
+    // }));
 
-    return messagesContent;
+    return chat;
   };
 
   public getMyChat = async () => {
     const myPhone = this.whatsappClient.info.wid.user;
-
     const myChat = await this.whatsappClient.getChatById(Parse.phone(myPhone));
-    const messages = await myChat.fetchMessages({
-      limit: 10,
-    });
+    // const messages = await myChat.fetchMessages({
+    //   limit: 10,
+    // });
 
-    const messagesContent = messages.map((message) => ({
-      message: message.body,
-      isMe: message.fromMe,
-    }));
+    // const messagesContent = messages.map((message) => ({
+    //   message: message.body,
+    //   isMe: message.fromMe,
+    // }));
 
-    return messagesContent;
+    // return messagesContent;
+
+    return myChat;
   };
 }

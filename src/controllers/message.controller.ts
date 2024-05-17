@@ -11,8 +11,9 @@ export class MessageController {
   }
 
   public sendMessage = async (req: Request, res: Response) => {
+    const { bodyValidator } = req.body;
     try {
-      await this.messageService.sendMessage(req.body);
+      await this.messageService.sendMessage(bodyValidator);
       return res.status(200).json({ message: "send message successfully" });
     } catch (error) {
       handleError(res, error);
@@ -20,8 +21,9 @@ export class MessageController {
   };
 
   public sendMessageFromMe = async (req: Request, res: Response) => {
+    const { bodyValidator } = req.body;
     try {
-      await this.messageService.sendMessageFromMe(req.body);
+      await this.messageService.sendMessageFromMe(bodyValidator);
       return res.status(200).json({ message: "send message from me successfully" });
     } catch (error) {
       handleError(res, error);
@@ -29,8 +31,9 @@ export class MessageController {
   };
 
   public sendMessageToContactOrder = async (req: Request, res: Response) => {
+    const { bodyValidator } = req.body;
     try {
-      await this.messageService.sendMessageToContactOrder(req.body);
+      await this.messageService.sendMessageToContactOrder(bodyValidator);
       return res.status(200).json({ message: "send message to contact successfully" });
     } catch (error) {
       handleError(res, error);
@@ -38,8 +41,9 @@ export class MessageController {
   };
 
   public sendMessageByContactName = async (req: Request, res: Response) => {
+    const { bodyValidator } = req.body;
     try {
-      await this.messageService.sendMessageByContactName(req.body);
+      await this.messageService.sendMessageByContactName(bodyValidator);
       return res.status(200).json({ message: "send message by contact name successfully" });
     } catch (error) {
       handleError(res, error);

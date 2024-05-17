@@ -20,8 +20,9 @@ export class GroupController {
   };
 
   public createGroup = async (req: Request, res: Response) => {
+    const { bodyValidator } = req.body;
     try {
-      const response = await this.groupService.createGroup(req.body);
+      const response = await this.groupService.createGroup(bodyValidator);
       return res.status(200).json({ message: "create group successfully", data: response });
     } catch (error) {
       handleError(res, error);
@@ -38,8 +39,9 @@ export class GroupController {
   };
 
   public getGroupByOrder = async (req: Request, res: Response) => {
+    const { paramsValidator } = req.body;
     try {
-      const response = await this.groupService.getGroupByOrder(req.body);
+      const response = await this.groupService.getGroupByOrder(paramsValidator);
       res.status(200).json({ message: "get group by order successfully", data: response });
     } catch (error) {
       handleError(res, error);
@@ -47,8 +49,9 @@ export class GroupController {
   };
 
   public getGroupByPhone = async (req: Request, res: Response) => {
+    const { paramsValidator } = req.body;
     try {
-      const response = await this.groupService.getGroupByPhone(req.body);
+      const response = await this.groupService.getGroupByPhone(paramsValidator);
       res.status(200).json({ message: "get group by phone successfully", data: response });
     } catch (error) {
       handleError(res, error);
@@ -56,8 +59,9 @@ export class GroupController {
   };
 
   public getGroupByName = async (req: Request, res: Response) => {
+    const { paramsValidator } = req.body;
     try {
-      const response = await this.groupService.getGroupByName(req.body);
+      const response = await this.groupService.getGroupByName(paramsValidator);
       res.status(200).json({ message: "get group by name successfully", data: response });
     } catch (error) {
       handleError(res, error);
