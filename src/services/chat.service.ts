@@ -34,17 +34,27 @@ export class ChatService {
       limit: 10,
     });
 
-    const messageText = messages.map((message) => ({
+    const messagesContent = messages.map((message) => ({
       message: message.body,
       isMe: message.fromMe,
     }));
 
-    return messageText;
+    return messagesContent;
   };
 
   public getMyChat = async () => {
-    const chats = await this.whatsappClient.getChats();
-    const myChat = chats.find((chat) => chat.id.user === this.whatsappClient.info.wid.user);
-    return myChat;
+    const myPhone = this.whatsappClient.info.wid.user;
+
+    const myChat = await this.whatsappClient.getChatById(Parse.phone(myPhone));
+    const messages = await myChat.fetchMessages({
+      limit: 10,
+    });
+
+    const messagesContent = messages.map((message) => ({
+      message: message.body,
+      isMe: message.fromMe,
+    }));
+
+    return messagesContent;
   };
 }
