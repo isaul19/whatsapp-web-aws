@@ -1,6 +1,29 @@
 import { Paths } from "swagger-jsdoc";
 
 export const messagePath: Paths = {
+  "/api/message/{phone}": {
+    get: {
+      tags: ["message"],
+      summary: "Get message by phone number",
+      parameters: [
+        {
+          name: "phone",
+          in: "path",
+          required: true,
+          schema: {
+            type: "string",
+            example: "51777888999",
+          },
+        },
+      ],
+      responses: {
+        "200": {
+          description: "get message successfully",
+        },
+      },
+    },
+  },
+
   "/api/message": {
     post: {
       tags: ["message"],

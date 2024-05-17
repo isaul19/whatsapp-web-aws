@@ -20,6 +20,16 @@ export class MessageController {
     }
   };
 
+  public getMessage = async (req: Request, res: Response) => {
+    const { paramsValidator } = req.body;
+    try {
+      const response = await this.messageService.getMessage(paramsValidator);
+      res.status(200).json({ message: "get message successfully", data: response });
+    } catch (error) {
+      handleError(res, error);
+    }
+  };
+
   public sendMessageFromMe = async (req: Request, res: Response) => {
     const { bodyValidator } = req.body;
     try {

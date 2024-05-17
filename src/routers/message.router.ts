@@ -4,6 +4,7 @@ import { MessageController } from "@controllers/message.controller";
 import { MessageService } from "@services/message.service";
 import { bodyValidator } from "@validators/_common/body.validator";
 import {
+  GetMessageDto,
   SendMessageByContactNameDto,
   SendMessageByContactOrderDto,
   SendMessageByGroupName,
@@ -11,6 +12,7 @@ import {
   SendMessageDto,
   SendMessageFromMeDto,
 } from "@dtos/message";
+import { paramsValidator } from "@validators/_common/params.validator";
 
 export class MessageRouter {
   public static get router() {
@@ -19,12 +21,11 @@ export class MessageRouter {
     const messageService = new MessageService();
     const messageController = new MessageController(messageService);
 
+    router.get("/:phone", paramsValidator(GetMessageDto), messageController.getMessage);
     router.post("/", bodyValidator(SendMessageDto), messageController.sendMessage);
 
     router.get("/from-me", messageController.getMessagesFromMe);
     router.post("/from-me", bodyValidator(SendMessageFromMeDto), messageController.sendMessageFromMe);
-
-    router.get("/");
 
     router.post(
       "/by-contact-order",

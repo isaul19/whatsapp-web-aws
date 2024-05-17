@@ -6,6 +6,7 @@ import { ContactService } from "@services/contact.service";
 import { CustomError } from "@errors/custom.error";
 import { Parse } from "@utils/parse.util";
 import {
+  GetMessageDto,
   SendMessageByContactNameDto,
   SendMessageByContactOrderDto,
   SendMessageByGroupName,
@@ -33,6 +34,23 @@ export class MessageService {
   public sendMessage = async (sendMessageDto: SendMessageDto): Promise<void> => {
     const { phone, message } = sendMessageDto;
     await this.whatsappClient.sendMessage(Parse.phone(phone), message);
+  };
+
+  public getMessage = async (getMessageDto: GetMessageDto) => {
+    const { phone } = getMessageDto;
+
+    const chat = await this.chatService.getChatByPhone({ phone });
+    const messages = await chat.fetchMessages({
+      limit: 10,
+    });
+
+    const messagesContent = messages.map((message) => ({
+      message: message.body,
+      isMe: message.fromMe,
+      date: Parse.date(message.timestamp),
+    }));
+
+    return messagesContent;
   };
 
   public sendMessageFromMe = async (sendMessageFromMeDto: SendMessageFromMeDto): Promise<void> => {
