@@ -50,10 +50,10 @@ export const messagePath: Paths = {
     },
   },
 
-  "/api/message/by-phone/{phone}": {
+  "/api/message/by-user-phone/{phone}": {
     get: {
       tags: ["message"],
-      summary: "Get message by phone number",
+      summary: "Get message by user phone number",
       parameters: [
         {
           name: "phone",
@@ -83,7 +83,7 @@ export const messagePath: Paths = {
 
     post: {
       tags: ["message"],
-      summary: "Send message by phone number",
+      summary: "Send message by user phone number",
       parameters: [
         {
           name: "phone",
@@ -185,6 +185,76 @@ export const messagePath: Paths = {
       responses: {
         "200": {
           description: "send message by contact name successfully",
+        },
+      },
+    },
+  },
+
+  "/api/message/by-group-phone/{phone}": {
+    get: {
+      tags: ["message"],
+      summary: "Get message by group phone number",
+      parameters: [
+        {
+          name: "phone",
+          in: "path",
+          required: true,
+          schema: {
+            type: "string",
+            example: "51777888999",
+          },
+        },
+        {
+          name: "limit",
+          in: "query",
+          required: false,
+          schema: {
+            type: "string",
+            example: "10",
+          },
+        },
+      ],
+      responses: {
+        "200": {
+          description: "get message successfully",
+        },
+      },
+    },
+
+    post: {
+      tags: ["message"],
+      summary: "Send message by group phone number",
+      parameters: [
+        {
+          name: "phone",
+          in: "path",
+          required: true,
+          schema: {
+            type: "string",
+            example: "51777888999",
+          },
+        },
+      ],
+      requestBody: {
+        required: true,
+        content: {
+          "application/json": {
+            schema: {
+              type: "object",
+              properties: {
+                message: {
+                  type: "string",
+                  example: "Hello from documentation",
+                },
+              },
+              required: ["message"],
+            },
+          },
+        },
+      },
+      responses: {
+        "200": {
+          description: "send message successfully",
         },
       },
     },

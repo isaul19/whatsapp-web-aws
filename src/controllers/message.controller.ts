@@ -62,7 +62,6 @@ export class MessageController {
 
   public getMessagesFromMe = async (req: Request, res: Response) => {
     const { queryValidator } = req.body;
-    console.log("controller");
 
     try {
       const response = await this.messageService.getMessagesFromMe(queryValidator);
