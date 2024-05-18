@@ -1,2 +1,4 @@
-export const AMERICAN_PHONE = "c.us";
-export const ID_AMERICAN_PHONE = "@" + AMERICAN_PHONE;
+export const AMERICAN_USER = "c.us";
+export const AMERICAN_GROUP = "g.us";
+export const ID_AMERICAN_USER = "@" + AMERICAN_USER;
+export const ID_AMERICAN_GROUP = "@" + AMERICAN_GROUP;

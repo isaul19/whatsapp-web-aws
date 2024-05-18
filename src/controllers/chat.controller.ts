@@ -21,7 +21,7 @@ export class ChatController {
   public getChatByPhone = async (req: Request, res: Response) => {
     const { paramsValidator } = req.body;
     try {
-      const response = await this.chatService.getChatByPhone(paramsValidator);
+      const response = await this.chatService.getUserChatByPhone(paramsValidator);
       res.status(200).json({ message: "get chat successfully", data: response });
     } catch (error) {
       handleError(res, error);

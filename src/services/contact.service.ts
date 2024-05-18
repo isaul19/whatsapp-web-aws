@@ -3,7 +3,7 @@ import { Client } from "whatsapp-web.js";
 import { Whatsapp } from "@boostrap/whatsapp.boostrap";
 import { CustomError } from "@errors/custom.error";
 import { GetContactByNameDto, GetContactByOrderDto, GetContactByPhone } from "@dtos/contact";
-import { AMERICAN_PHONE } from "@config/constants";
+import { AMERICAN_USER } from "@config/constants";
 
 export class ContactService {
   private whatsappClient: Client;
@@ -16,7 +16,7 @@ export class ContactService {
     const contacts = await this.whatsappClient.getContacts();
 
     const MyContacts = contacts.filter(
-      (contact) => contact.id.server === AMERICAN_PHONE && contact.isMyContact && !contact.isGroup,
+      (contact) => contact.id.server === AMERICAN_USER && contact.isMyContact && !contact.isGroup,
     );
 
     const contactsLowInfo = MyContacts.map((contact, index) => ({

@@ -1,8 +1,12 @@
-import { ID_AMERICAN_PHONE } from "@config/constants";
+import { ID_AMERICAN_GROUP, ID_AMERICAN_USER } from "@config/constants";
 
 export class Parse {
-  public static phone(phone: string): string {
-    return phone + ID_AMERICAN_PHONE;
+  public static UserPhone(phone: string): string {
+    return phone + ID_AMERICAN_USER;
+  }
+
+  public static GroupPhone(phone: string): string {
+    return phone + ID_AMERICAN_GROUP;
   }
 
   public static date(timestamp: number): string {

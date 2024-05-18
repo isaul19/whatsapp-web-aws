@@ -36,14 +36,14 @@ export class MessageService {
 
   public sendMessage = async (sendMessageDto: SendMessageDto): Promise<void> => {
     const { phone, message } = sendMessageDto;
-    await this.whatsappClient.sendMessage(Parse.phone(phone), message);
+    await this.whatsappClient.sendMessage(Parse.UserPhone(phone), message);
   };
 
   public getMessage = async (getMessageDto: GetMessageDto, limitDto: LimitDto) => {
     const { phone } = getMessageDto;
     const limit = limitDto?.limit ?? 10;
 
-    const chat = await this.chatService.getChatByPhone({ phone });
+    const chat = await this.chatService.getUserChatByPhone({ phone });
     const messages = await chat.fetchMessages({
       limit: limit,
     });
@@ -85,7 +85,7 @@ export class MessageService {
     const { order, message } = sendMessageByContactOrderDto;
     const { phone } = await this.contactService.getContactByOrder({ order });
 
-    await this.whatsappClient.sendMessage(Parse.phone(phone), message);
+    await this.whatsappClient.sendMessage(Parse.UserPhone(phone), message);
   };
 
   public sendMessageByContactName = async (sendMessageByContactNameDto: SendMessageByContactNameDto) => {
@@ -95,7 +95,7 @@ export class MessageService {
     if (myContact.length >= 2) throw CustomError.badRequest("Exists two contact with similarity names");
     const { phone } = myContact[0];
 
-    await this.whatsappClient.sendMessage(Parse.phone(phone), message);
+    await this.whatsappClient.sendMessage(Parse.UserPhone(phone), message);
   };
 
   public getMessagesByContactName = async (nameDto: NameDto, limitDto: LimitDto) => {
@@ -107,7 +107,7 @@ export class MessageService {
     if (myContact.length >= 2) throw CustomError.badRequest("Exists two contact with similarity names");
     const { phone } = myContact[0];
 
-    const myContactChat = await this.chatService.getChatByPhone({ phone });
+    const myContactChat = await this.chatService.getUserChatByPhone({ phone });
 
     const messages = await myContactChat.fetchMessages({
       limit: limit,
@@ -126,7 +126,7 @@ export class MessageService {
     const { order, message } = sendMessageByGroupOrderDto;
     const { phone } = await this.groupService.getGroupByOrder({ order });
 
-    await this.whatsappClient.sendMessage(Parse.phone(phone), message);
+    await this.whatsappClient.sendMessage(Parse.GroupPhone(phone), message);
   };
 
   public sendMessageByGroupName = async (sendMessageByGroupNameDto: SendMessageByGroupName) => {
@@ -137,7 +137,7 @@ export class MessageService {
 
     const { phone } = myGroup[0];
 
-    await this.whatsappClient.sendMessage(Parse.phone(phone), message);
+    await this.whatsappClient.sendMessage(Parse.GroupPhone(phone), message);
   };
 
   public getMessagesByGroupName = async (nameDto: NameDto, limitDto: LimitDto) => {
@@ -149,7 +149,7 @@ export class MessageService {
     if (myGroup.length >= 2) throw CustomError.badRequest("Exists two contact with similarity names");
     const { phone } = myGroup[0];
 
-    const myGroupChat = await this.chatService.getChatByPhone({ phone });
+    const myGroupChat = await this.chatService.getGroupChatByPhone({ phone });
 
     const messages = await myGroupChat.fetchMessages({
       limit: limit,

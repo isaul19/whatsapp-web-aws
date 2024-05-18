@@ -34,7 +34,7 @@ export class GroupService {
   public createGroup = async (createGroupDto: CreateGroupDto) => {
     const { groupName, participantsPhones } = createGroupDto;
 
-    const participants = participantsPhones.map((phone) => Parse.phone(phone));
+    const participants = participantsPhones.map((phone) => Parse.UserPhone(phone));
     const group = await this.whatsappClient.createGroup(groupName, participants);
     return group;
   };
@@ -47,7 +47,7 @@ export class GroupService {
 
     if (chat.isGroup) {
       const groupChat = chat as GroupChat;
-      const participants = participantsPhones.map((phone) => Parse.phone(phone));
+      const participants = participantsPhones.map((phone) => Parse.UserPhone(phone));
       await groupChat.addParticipants(participants);
     }
   };
