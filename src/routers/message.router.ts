@@ -31,7 +31,7 @@ export class MessageRouter {
       messageController.getMessage,
     );
 
-    router.post("/", bodyValidator(SendMessageDto), messageController.sendMessage);
+    router.post("/by-phone", bodyValidator(SendMessageDto), messageController.sendMessage);
 
     router.get("/from-me", queryValidator(LimitDto), messageController.getMessagesFromMe);
     router.post("/from-me", bodyValidator(SendMessageFromMeDto), messageController.sendMessageFromMe);

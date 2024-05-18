@@ -33,7 +33,7 @@ export const messagePath: Paths = {
     },
   },
 
-  "/api/message": {
+  "/api/message/by-phone": {
     post: {
       tags: ["message"],
       summary: "Send message by phone number",
