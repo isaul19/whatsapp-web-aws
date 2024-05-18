@@ -115,39 +115,6 @@ export const messagePath: Paths = {
     },
   },
 
-  // "/api/message/by-contact-order": {
-  //   post: {
-  //     tags: ["message"],
-  //     summary: "Send message by contact order",
-  //     requestBody: {
-  //       required: true,
-  //       content: {
-  //         "application/json": {
-  //           schema: {
-  //             type: "object",
-  //             properties: {
-  //               order: {
-  //                 type: "number",
-  //                 example: 1,
-  //               },
-  //               message: {
-  //                 type: "string",
-  //                 example: "Hello from documentation",
-  //               },
-  //             },
-  //             required: ["order", "message"],
-  //           },
-  //         },
-  //       },
-  //     },
-  //     responses: {
-  //       "200": {
-  //         description: "send message to contact successfully",
-  //       },
-  //     },
-  //   },
-  // },
-
   "/api/message/by-contact-name/{name}": {
     get: {
       tags: ["message"],
@@ -212,39 +179,6 @@ export const messagePath: Paths = {
       },
     },
   },
-
-  // "/api/message/by-group-order": {
-  //   post: {
-  //     tags: ["message"],
-  //     summary: "Send message by group order",
-  //     requestBody: {
-  //       required: true,
-  //       content: {
-  //         "application/json": {
-  //           schema: {
-  //             type: "object",
-  //             properties: {
-  //               order: {
-  //                 type: "number",
-  //                 example: 1,
-  //               },
-  //               message: {
-  //                 type: "string",
-  //                 example: "Hello from documentation",
-  //               },
-  //             },
-  //             required: ["order", "message"],
-  //           },
-  //         },
-  //       },
-  //     },
-  //     responses: {
-  //       "200": {
-  //         description: "send message to group successfully",
-  //       },
-  //     },
-  //   },
-  // },
 
   "/api/message/by-group-name/{name}": {
     get: {

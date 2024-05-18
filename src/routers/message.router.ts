@@ -36,12 +36,6 @@ export class MessageRouter {
     router.get("/from-me", queryValidator(LimitDto), messageController.getMessagesFromMe);
     router.post("/from-me", bodyValidator(SendMessageFromMeDto), messageController.sendMessageFromMe);
 
-    // router.post(
-    //   "/by-contact-order",
-    //   bodyValidator(SendMessageByContactOrderDto),
-    //   messageController.sendMessageByContactOrder,
-    // );
-
     router.post(
       "/by-contact-name",
       bodyValidator(SendMessageByContactNameDto),
@@ -54,8 +48,6 @@ export class MessageRouter {
       queryValidator(LimitDto),
       messageController.getMessagesByContactName,
     );
-
-    // router.post("/by-group-order", bodyValidator(SendMessageByGroupOrder), messageController.sendMessageByGroupOrder);
 
     router.post("/by-group-name", bodyValidator(SendMessageByGroupName), messageController.sendMessageByGroupName);
 

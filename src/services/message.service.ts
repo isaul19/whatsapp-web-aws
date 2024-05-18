@@ -1,4 +1,4 @@
-import { Client, GroupChat } from "whatsapp-web.js";
+import { Client } from "whatsapp-web.js";
 
 import { Whatsapp } from "@boostrap/whatsapp.boostrap";
 import { ChatService } from "@services/chat.service";
@@ -8,14 +8,11 @@ import { Parse } from "@utils/parse.util";
 import {
   GetMessageDto,
   SendMessageByContactNameDto,
-  SendMessageByContactOrderDto,
   SendMessageByGroupName,
-  SendMessageByGroupOrder,
   SendMessageDto,
   SendMessageFromMeDto,
 } from "@dtos/message";
 import { GroupService } from "./group.service";
-import { PhoneDto } from "@dtos/_common/phone.dto";
 import { LimitDto } from "@dtos/_common/limit.dto";
 import { NameDto } from "@dtos/_common/name.dto";
 
@@ -81,13 +78,6 @@ export class MessageService {
     return messagesContent;
   };
 
-  public sendMessageByContactOrder = async (sendMessageByContactOrderDto: SendMessageByContactOrderDto) => {
-    const { order, message } = sendMessageByContactOrderDto;
-    const { phone } = await this.contactService.getContactByOrder({ order });
-
-    await this.whatsappClient.sendMessage(Parse.UserPhone(phone), message);
-  };
-
   public sendMessageByContactName = async (sendMessageByContactNameDto: SendMessageByContactNameDto) => {
     const { name, message } = sendMessageByContactNameDto;
     const myContact = await this.contactService.getContactByName({ name });
@@ -120,13 +110,6 @@ export class MessageService {
     }));
 
     return messagesContent;
-  };
-
-  public sendMessageByGroupOrder = async (sendMessageByGroupOrderDto: SendMessageByGroupOrder) => {
-    const { order, message } = sendMessageByGroupOrderDto;
-    const { phone } = await this.groupService.getGroupByOrder({ order });
-
-    await this.whatsappClient.sendMessage(Parse.GroupPhone(phone), message);
   };
 
   public sendMessageByGroupName = async (sendMessageByGroupNameDto: SendMessageByGroupName) => {

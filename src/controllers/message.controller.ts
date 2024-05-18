@@ -52,16 +52,6 @@ export class MessageController {
     }
   };
 
-  public sendMessageByContactOrder = async (req: Request, res: Response) => {
-    const { bodyValidator } = req.body;
-    try {
-      await this.messageService.sendMessageByContactOrder(bodyValidator);
-      return res.status(200).json({ message: "send message to contact successfully" });
-    } catch (error) {
-      handleError(res, error);
-    }
-  };
-
   public sendMessageByContactName = async (req: Request, res: Response) => {
     const { bodyValidator } = req.body;
     try {
@@ -77,16 +67,6 @@ export class MessageController {
     try {
       const response = await this.messageService.getMessagesByContactName(paramsValidator, queryValidator);
       res.status(200).json({ message: "get messages by contact name successfully", data: response });
-    } catch (error) {
-      handleError(res, error);
-    }
-  };
-
-  public sendMessageByGroupOrder = async (req: Request, res: Response) => {
-    const { bodyValidator } = req.body;
-    try {
-      await this.messageService.sendMessageByGroupOrder(bodyValidator);
-      return res.status(200).json({ message: "send message to group successfully" });
     } catch (error) {
       handleError(res, error);
     }
