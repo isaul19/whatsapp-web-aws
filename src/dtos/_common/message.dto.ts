@@ -1,11 +1,6 @@
 import { IsNotEmpty, IsString, MinLength } from "class-validator";
 
-export class SendMessageByGroupName {
-  @IsNotEmpty()
-  @IsString()
-  @MinLength(2)
-  name: string;
-
+export class MessageDto {
   @IsNotEmpty()
   @IsString()
   @MinLength(2)

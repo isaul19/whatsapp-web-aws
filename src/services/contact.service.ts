@@ -2,8 +2,8 @@ import { Client } from "whatsapp-web.js";
 
 import { Whatsapp } from "@boostrap/whatsapp.boostrap";
 import { CustomError } from "@errors/custom.error";
-import { GetContactByNameDto, GetContactByOrderDto, GetContactByPhone } from "@dtos/contact";
 import { AMERICAN_USER } from "@config/constants";
+import { NameDto, PhoneDto } from "@dtos/_common";
 
 export class ContactService {
   private whatsappClient: Client;
@@ -28,18 +28,8 @@ export class ContactService {
     return contactsLowInfo;
   };
 
-  public getContactByOrder = async (getContactByOrder: GetContactByOrderDto) => {
-    const { order } = getContactByOrder;
-
-    const contactsLow = await this.listAllContacts();
-    const contact = contactsLow.find((contact) => contact.order === order);
-    if (!contact) throw CustomError.notFound(`Contact with order '${order}' not found`);
-
-    return contact;
-  };
-
-  public getContactByPhone = async (getContactByPhone: GetContactByPhone) => {
-    const { phone } = getContactByPhone;
+  public getContactByPhone = async (phoneDto: PhoneDto) => {
+    const { phone } = phoneDto;
 
     const contactsLow = await this.listAllContacts();
     const contact = contactsLow.find((group) => group.phone === phone);
@@ -48,8 +38,8 @@ export class ContactService {
     return contact;
   };
 
-  public getContactByName = async (getContactByNameDto: GetContactByNameDto) => {
-    const { name } = getContactByNameDto;
+  public getContactByName = async (nameDto: NameDto) => {
+    const { name } = nameDto;
 
     const contactsLow = await this.listAllContacts();
     const contacts = contactsLow.filter((contact) => contact.name.toLowerCase().includes(name.toLowerCase()));

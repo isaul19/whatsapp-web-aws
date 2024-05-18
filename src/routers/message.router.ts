@@ -3,19 +3,9 @@ import { Router } from "express";
 import { MessageController } from "@controllers/message.controller";
 import { MessageService } from "@services/message.service";
 import { bodyValidator } from "@validators/_common/body.validator";
-import {
-  GetMessageDto,
-  SendMessageByContactNameDto,
-  SendMessageByContactOrderDto,
-  SendMessageByGroupName,
-  SendMessageByGroupOrder,
-  SendMessageDto,
-  SendMessageFromMeDto,
-} from "@dtos/message";
 import { paramsValidator } from "@validators/_common/params.validator";
 import { queryValidator } from "@validators/_common/query.validator";
-import { LimitDto } from "@dtos/_common/limit.dto";
-import { NameDto } from "@dtos/_common/name.dto";
+import { LimitDto, MessageDto, NameDto, PhoneDto } from "@dtos/_common";
 
 export class MessageRouter {
   public static get router() {
@@ -24,21 +14,41 @@ export class MessageRouter {
     const messageService = new MessageService();
     const messageController = new MessageController(messageService);
 
+    router.get("/from-me", queryValidator(LimitDto), messageController.getMessagesFromMe);
+    router.post("/from-me", bodyValidator(MessageDto), messageController.sendMessageFromMe);
+
     router.get(
-      "/by-phone/:phone",
-      paramsValidator(GetMessageDto),
+      "/by-user-phone/:phone",
+      paramsValidator(PhoneDto),
       queryValidator(LimitDto),
-      messageController.getMessage,
+      messageController.getMessageByUserPhone,
     );
 
-    router.post("/by-phone", bodyValidator(SendMessageDto), messageController.sendMessage);
+    router.post(
+      "/by-user-phone/:phone",
+      paramsValidator(PhoneDto),
+      bodyValidator(MessageDto),
+      messageController.sendMessageByUserPhone,
+    );
 
-    router.get("/from-me", queryValidator(LimitDto), messageController.getMessagesFromMe);
-    router.post("/from-me", bodyValidator(SendMessageFromMeDto), messageController.sendMessageFromMe);
+    router.get(
+      "/by-group-phone/:phone",
+      paramsValidator(PhoneDto),
+      queryValidator(LimitDto),
+      messageController.getMessageByGroupPhone,
+    );
 
     router.post(
-      "/by-contact-name",
-      bodyValidator(SendMessageByContactNameDto),
+      "/by-group-phone/:phone",
+      paramsValidator(PhoneDto),
+      bodyValidator(MessageDto),
+      messageController.sendMessageByGroupPhone,
+    );
+
+    router.post(
+      "/by-contact-name/:name",
+      paramsValidator(NameDto),
+      bodyValidator(MessageDto),
       messageController.sendMessageByContactName,
     );
 
@@ -49,7 +59,12 @@ export class MessageRouter {
       messageController.getMessagesByContactName,
     );
 
-    router.post("/by-group-name", bodyValidator(SendMessageByGroupName), messageController.sendMessageByGroupName);
+    router.post(
+      "/by-group-name/:name",
+      paramsValidator(NameDto),
+      bodyValidator(MessageDto),
+      messageController.sendMessageByGroupName,
+    );
 
     router.get(
       "/by-group-name/:name",

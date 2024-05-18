@@ -3,7 +3,7 @@ import { Router } from "express";
 import { ContactController } from "@controllers/contact.controller";
 import { ContactService } from "@services/contact.service";
 import { paramsValidator } from "@validators/_common/params.validator";
-import { GetContactByNameDto, GetContactByOrderDto, GetContactByPhone } from "@dtos/contact";
+import { NameDto, PhoneDto } from "@dtos/_common";
 
 export class ContactRouter {
   public static get router() {
@@ -14,9 +14,8 @@ export class ContactRouter {
 
     router.get("/", contactController.listAllContacts);
 
-    router.get("/by-phone/:phone", paramsValidator(GetContactByPhone), contactController.getContactByOrder);
-    // router.get("/by-order/:order", paramsValidator(GetContactByOrderDto), contactController.getContactByOrder);
-    router.get("/by-name/:name", paramsValidator(GetContactByNameDto), contactController.getContactByName);
+    router.get("/by-phone/:phone", paramsValidator(PhoneDto), contactController.getContactByPhone);
+    router.get("/by-name/:name", paramsValidator(NameDto), contactController.getContactByName);
 
     return router;
   }

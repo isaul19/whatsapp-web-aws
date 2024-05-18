@@ -1,20 +1,14 @@
 import { Client } from "whatsapp-web.js";
 
 import { Whatsapp } from "@boostrap/whatsapp.boostrap";
+
 import { ChatService } from "@services/chat.service";
 import { ContactService } from "@services/contact.service";
+import { GroupService } from "@services/group.service";
+
+import { LimitDto, MessageDto, NameDto, PhoneDto } from "@dtos/_common";
 import { CustomError } from "@errors/custom.error";
 import { Parse } from "@utils/parse.util";
-import {
-  GetMessageDto,
-  SendMessageByContactNameDto,
-  SendMessageByGroupName,
-  SendMessageDto,
-  SendMessageFromMeDto,
-} from "@dtos/message";
-import { GroupService } from "./group.service";
-import { LimitDto } from "@dtos/_common/limit.dto";
-import { NameDto } from "@dtos/_common/name.dto";
 
 export class MessageService {
   private whatsappClient: Client;
@@ -31,13 +25,15 @@ export class MessageService {
     this.groupService = new GroupService();
   }
 
-  public sendMessage = async (sendMessageDto: SendMessageDto): Promise<void> => {
-    const { phone, message } = sendMessageDto;
+  public sendMessageByUserPhone = async (phoneDto: PhoneDto, messageDto: MessageDto): Promise<void> => {
+    const { phone } = phoneDto;
+    const { message } = messageDto;
+
     await this.whatsappClient.sendMessage(Parse.UserPhone(phone), message);
   };
 
-  public getMessage = async (getMessageDto: GetMessageDto, limitDto: LimitDto) => {
-    const { phone } = getMessageDto;
+  public getMessageByUserPhone = async (phoneDto: PhoneDto, limitDto: LimitDto) => {
+    const { phone } = phoneDto;
     const limit = limitDto?.limit ?? 10;
 
     const chat = await this.chatService.getUserChatByPhone({ phone });
@@ -54,8 +50,33 @@ export class MessageService {
     return messagesContent;
   };
 
-  public sendMessageFromMe = async (sendMessageFromMeDto: SendMessageFromMeDto): Promise<void> => {
-    const { message } = sendMessageFromMeDto;
+  public getMessageByGroupPhone = async (phoneDto: PhoneDto, limitDto: LimitDto) => {
+    const { phone } = phoneDto;
+    const limit = limitDto?.limit ?? 10;
+
+    const chat = await this.chatService.getGroupChatByPhone({ phone });
+    const messages = await chat.fetchMessages({
+      limit: limit,
+    });
+
+    const messagesContent = messages.map((message) => ({
+      message: message.body,
+      isMe: message.fromMe,
+      date: Parse.date(message.timestamp),
+    }));
+
+    return messagesContent;
+  };
+
+  public sendMessageByGroupPhone = async (phoneDto: PhoneDto, messageDto: MessageDto) => {
+    const { phone } = phoneDto;
+    const { message } = messageDto;
+
+    await this.whatsappClient.sendMessage(Parse.GroupPhone(phone), message);
+  };
+
+  public sendMessageFromMe = async (messageDto: MessageDto): Promise<void> => {
+    const { message } = messageDto;
     const myChat = await this.chatService.getMyChat();
     const myId = myChat.id._serialized;
 
@@ -78,8 +99,10 @@ export class MessageService {
     return messagesContent;
   };
 
-  public sendMessageByContactName = async (sendMessageByContactNameDto: SendMessageByContactNameDto) => {
-    const { name, message } = sendMessageByContactNameDto;
+  public sendMessageByContactName = async (nameDto: NameDto, messageDto: MessageDto) => {
+    const { name } = nameDto;
+    const { message } = messageDto;
+
     const myContact = await this.contactService.getContactByName({ name });
 
     if (myContact.length >= 2) throw CustomError.badRequest("Exists two contact with similarity names");
@@ -112,8 +135,10 @@ export class MessageService {
     return messagesContent;
   };
 
-  public sendMessageByGroupName = async (sendMessageByGroupNameDto: SendMessageByGroupName) => {
-    const { name, message } = sendMessageByGroupNameDto;
+  public sendMessageByGroupName = async (nameDto: NameDto, messageDto: MessageDto) => {
+    const { name } = nameDto;
+    const { message } = messageDto;
+
     const myGroup = await this.groupService.getGroupByName({ name });
 
     if (myGroup.length >= 2) throw CustomError.badRequest("Exists two group with similarity names");

@@ -38,16 +38,6 @@ export class GroupController {
     }
   };
 
-  public getGroupByOrder = async (req: Request, res: Response) => {
-    const { paramsValidator } = req.body;
-    try {
-      const response = await this.groupService.getGroupByOrder(paramsValidator);
-      res.status(200).json({ message: "get group by order successfully", data: response });
-    } catch (error) {
-      handleError(res, error);
-    }
-  };
-
   public getGroupByPhone = async (req: Request, res: Response) => {
     const { paramsValidator } = req.body;
     try {

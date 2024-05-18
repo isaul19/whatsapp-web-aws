@@ -19,16 +19,6 @@ export class ContactController {
     }
   };
 
-  public getContactByOrder = async (req: Request, res: Response) => {
-    const { paramsValidator } = req.body;
-    try {
-      const response = await this.contactService.getContactByOrder(paramsValidator);
-      res.status(200).json({ message: "get contact by order successfully", data: response });
-    } catch (error) {
-      handleError(res, error);
-    }
-  };
-
   public getContactByPhone = async (req: Request, res: Response) => {
     const { paramsValidator } = req.body;
     try {

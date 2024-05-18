@@ -3,13 +3,8 @@ import { Client, GroupChat } from "whatsapp-web.js";
 import { Whatsapp } from "@boostrap/whatsapp.boostrap";
 import { Parse } from "@utils/parse.util";
 import { CustomError } from "@errors/custom.error";
-import {
-  AddParticipantGroupDto,
-  CreateGroupDto,
-  GetGroupByNameDto,
-  GetGroupByOrderDto,
-  GetGroupByPhoneDto,
-} from "@dtos/group";
+import { AddParticipantGroupDto, CreateGroupDto } from "@dtos/group";
+import { NameDto, PhoneDto } from "@dtos/_common";
 
 export class GroupService {
   private whatsappClient: Client;
@@ -52,18 +47,8 @@ export class GroupService {
     }
   };
 
-  public getGroupByOrder = async (getGroupByOrderDto: GetGroupByOrderDto) => {
-    const { order } = getGroupByOrderDto;
-
-    const groupsLow = await this.listAllGroups();
-    const group = groupsLow.find((group) => group.order === order);
-    if (!group) throw CustomError.notFound(`Group with order '${order}' not found`);
-
-    return group;
-  };
-
-  public getGroupByPhone = async (getGroupByPhoneDto: GetGroupByPhoneDto) => {
-    const { phone } = getGroupByPhoneDto;
+  public getGroupByPhone = async (phoneDto: PhoneDto) => {
+    const { phone } = phoneDto;
 
     const groupsLow = await this.listAllGroups();
     const group = groupsLow.find((group) => group.phone === phone);
@@ -72,8 +57,8 @@ export class GroupService {
     return group;
   };
 
-  public getGroupByName = async (getGroupByNameDto: GetGroupByNameDto) => {
-    const { name } = getGroupByNameDto;
+  public getGroupByName = async (nameDto: NameDto) => {
+    const { name } = nameDto;
 
     const groupsLow = await this.listAllGroups();
     const groups = groupsLow.filter((contact) => contact.name.toLowerCase().includes(name.toLowerCase()));
