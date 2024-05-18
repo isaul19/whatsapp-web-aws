@@ -7,6 +7,7 @@
       "dynamicImport": true,
       "decorators": true
     },
+
     "transform": null,
     "target": "es2016",
     "loose": false,
@@ -30,7 +31,7 @@
   },
   "module": {
     "type": "commonjs",
-    "strict": false,
+    "strict": true,
     "strictMode": true,
     "noInterop": false,
     "lazy": false
