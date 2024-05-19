@@ -1,10 +1,11 @@
-import { Client, GroupChat } from "whatsapp-web.js";
+import type { Client, GroupChat } from "whatsapp-web.js";
 
 import { Whatsapp } from "@boostrap/whatsapp.boostrap";
 import { Parse } from "@utils/parse.util";
 import { CustomError } from "@errors/custom.error";
-import { AddParticipantGroupDto, CreateGroupDto } from "@dtos/group";
-import { NameDto, PhoneDto } from "@dtos/_common";
+
+import type { AddParticipantGroupDto, CreateGroupDto } from "@dtos/group";
+import type { NameDto, PhoneDto } from "@dtos/_common";
 
 export class GroupService {
   private whatsappClient: Client;

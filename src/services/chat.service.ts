@@ -1,8 +1,8 @@
-import { Client } from "whatsapp-web.js";
+import type { Client } from "whatsapp-web.js";
 
 import { Whatsapp } from "@boostrap/whatsapp.boostrap";
 import { Parse } from "@utils/parse.util";
-import { NameDto, PhoneDto } from "@dtos/_common";
+import type { NameDto, PhoneDto } from "@dtos/_common";
 
 export class ChatService {
   private whatsappClient: Client;
@@ -11,7 +11,7 @@ export class ChatService {
     this.whatsappClient = Whatsapp.client;
   }
 
-  private listAllChats = async () => {
+  public listAllChats = async () => {
     const chats = await this.whatsappClient.getChats();
 
     const chatsLowInfo = chats

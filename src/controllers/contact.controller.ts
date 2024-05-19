@@ -1,7 +1,7 @@
-import { Request, Response } from "express";
+import type { Request, Response } from "express";
 
+import type { ContactService } from "@services/contact.service";
 import { handleError } from "@errors/handle.error";
-import { ContactService } from "@services/contact.service";
 
 export class ContactController {
   private contactService: ContactService;

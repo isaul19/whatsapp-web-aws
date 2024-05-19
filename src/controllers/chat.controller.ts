@@ -1,6 +1,7 @@
+import type { Request, Response } from "express";
+
+import type { ChatService } from "@services/chat.service";
 import { handleError } from "@errors/handle.error";
-import { ChatService } from "@services/chat.service";
-import { Request, Response } from "express";
 
 export class ChatController {
   private chatService: ChatService;

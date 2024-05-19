@@ -1,9 +1,10 @@
-import { Client } from "whatsapp-web.js";
+import type { Client } from "whatsapp-web.js";
 
 import { Whatsapp } from "@boostrap/whatsapp.boostrap";
 import { CustomError } from "@errors/custom.error";
 import { AMERICAN_USER } from "@config/constants";
-import { NameDto, PhoneDto } from "@dtos/_common";
+
+import type { NameDto, PhoneDto } from "@dtos/_common";
 
 export class ContactService {
   private whatsappClient: Client;
@@ -36,7 +37,12 @@ export class ContactService {
     const { name } = nameDto;
 
     const contactsLow = await this.listAllContacts();
-    const contacts = contactsLow.filter((contact) => contact.name!.toLowerCase().includes(name.toLowerCase()));
+
+    const contacts = contactsLow.filter((contact) => {
+      if (!contact.name) return false;
+      contact.name.toLowerCase().includes(name.toLowerCase());
+    });
+
     if (contacts.length === 0) throw CustomError.notFound(`Contacts with name '${name}' not found`);
     if (contacts.length >= 2) throw CustomError.badRequest(`Exists two groups with name ${name}`);
 

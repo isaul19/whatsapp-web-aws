@@ -1,7 +1,7 @@
-import { Request, Response } from "express";
+import type { Request, Response } from "express";
 
+import type { GroupService } from "@services/group.service";
 import { handleError } from "@errors/handle.error";
-import { GroupService } from "@services/group.service";
 
 export class GroupController {
   private groupService: GroupService;

@@ -1,14 +1,13 @@
-import { Client } from "whatsapp-web.js";
+import type { Client } from "whatsapp-web.js";
 
 import { Whatsapp } from "@boostrap/whatsapp.boostrap";
 
 import { ChatService } from "@services/chat.service";
 import { ContactService } from "@services/contact.service";
 import { GroupService } from "@services/group.service";
-
-import { LimitDto, MessageDto, NameDto, PhoneDto } from "@dtos/_common";
-import { CustomError } from "@errors/custom.error";
 import { Parse } from "@utils/parse.util";
+
+import type { LimitDto, MessageDto, NameDto, PhoneDto } from "@dtos/_common";
 
 export class MessageService {
   private whatsappClient: Client;

@@ -1,6 +1,6 @@
-import { Request, Response } from "express";
+import type { Request, Response } from "express";
 
-import { MessageService } from "@services/message.service";
+import type { MessageService } from "@services/message.service";
 import { handleError } from "@errors/handle.error";
 
 export class MessageController {

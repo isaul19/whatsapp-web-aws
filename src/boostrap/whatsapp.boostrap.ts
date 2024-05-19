@@ -1,5 +1,5 @@
 import { Client, RemoteAuth } from "whatsapp-web.js";
-import { S3Store } from "./s3-store.bootrap";
+import type { S3Store } from "./s3-store.bootrap";
 import qrcode from "qrcode";
 
 interface Options {

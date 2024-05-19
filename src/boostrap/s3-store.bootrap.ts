@@ -1,4 +1,4 @@
-import { Store } from "whatsapp-web.js";
+import type { Store } from "whatsapp-web.js";
 import {
   S3Client,
   PutObjectCommand,
