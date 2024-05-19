@@ -57,4 +57,24 @@ export class GroupController {
       handleError(res, error);
     }
   };
+
+  public mutedGroupByName = async (req: Request, res: Response) => {
+    const { paramsValidator } = req.body;
+    try {
+      await this.groupService.mutedGroupByName(paramsValidator);
+      return res.status(200).json({ message: "muted group by name successfully" });
+    } catch (error) {
+      handleError(res, error);
+    }
+  };
+
+  public unmutedGroupByName = async (req: Request, res: Response) => {
+    const { paramsValidator } = req.body;
+    try {
+      await this.groupService.unmutedGroupByName(paramsValidator);
+      return res.status(200).json({ message: "unmuted group by name successfully" });
+    } catch (error) {
+      handleError(res, error);
+    }
+  };
 }

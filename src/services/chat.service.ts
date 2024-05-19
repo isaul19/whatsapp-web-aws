@@ -2,7 +2,7 @@ import { Client } from "whatsapp-web.js";
 
 import { Whatsapp } from "@boostrap/whatsapp.boostrap";
 import { Parse } from "@utils/parse.util";
-import { PhoneDto } from "@dtos/_common";
+import { NameDto, PhoneDto } from "@dtos/_common";
 
 export class ChatService {
   private whatsappClient: Client;
@@ -11,7 +11,7 @@ export class ChatService {
     this.whatsappClient = Whatsapp.client;
   }
 
-  public listAllChats = async () => {
+  private listAllChats = async () => {
     const chats = await this.whatsappClient.getChats();
 
     const chatsLowInfo = chats
@@ -42,5 +42,13 @@ export class ChatService {
     const myPhone = this.whatsappClient.info.wid.user;
     const myChat = await this.whatsappClient.getChatById(Parse.UserPhone(myPhone));
     return myChat;
+  };
+
+  public getChatByContactName = async (nameDto: NameDto) => {
+    // const { name } = nameDto;
+    // const myContact = await this.contactService.getContactByName({ name });
+    // const phone = myContact.id._serialized;
+    // const chat = await this.whatsappClient.getChatById(Parse.UserPhone(phone));
+    // return chat;
   };
 }

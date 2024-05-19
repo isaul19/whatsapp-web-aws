@@ -19,20 +19,14 @@ export class ContactService {
       (contact) => contact.id.server === AMERICAN_USER && contact.isMyContact && !contact.isGroup,
     );
 
-    const contactsLowInfo = MyContacts.map((contact, index) => ({
-      order: index + 1,
-      phone: contact.id.user,
-      name: contact.name,
-    }));
-
-    return contactsLowInfo;
+    return MyContacts;
   };
 
   public getContactByPhone = async (phoneDto: PhoneDto) => {
     const { phone } = phoneDto;
 
     const contactsLow = await this.listAllContacts();
-    const contact = contactsLow.find((group) => group.phone === phone);
+    const contact = contactsLow.find((group) => group.id.user === phone);
     if (!contact) throw CustomError.notFound(`Group with phone '${phone}' not found`);
 
     return contact;
@@ -42,9 +36,11 @@ export class ContactService {
     const { name } = nameDto;
 
     const contactsLow = await this.listAllContacts();
-    const contacts = contactsLow.filter((contact) => contact.name.toLowerCase().includes(name.toLowerCase()));
+    const contacts = contactsLow.filter((contact) => contact.name!.toLowerCase().includes(name.toLowerCase()));
     if (contacts.length === 0) throw CustomError.notFound(`Contacts with name '${name}' not found`);
+    if (contacts.length >= 2) throw CustomError.badRequest(`Exists two groups with name ${name}`);
 
-    return contacts;
+    const contactChat = contacts[0].getChat();
+    return contactChat;
   };
 }

@@ -70,29 +70,6 @@ export const groupPath: Paths = {
     },
   },
 
-  // "/api/group/by-order/{order}": {
-  //   get: {
-  //     tags: ["group"],
-  //     summary: "Get group by order",
-  //     parameters: [
-  //       {
-  //         name: "order",
-  //         in: "path",
-  //         required: true,
-  //         schema: {
-  //           type: "string",
-  //           example: "1",
-  //         },
-  //       },
-  //     ],
-  //     responses: {
-  //       "200": {
-  //         description: "get group by order successfully",
-  //       },
-  //     },
-  //   },
-  // },
-
   "/api/group/by-name/{name}": {
     get: {
       tags: ["group"],
@@ -111,6 +88,52 @@ export const groupPath: Paths = {
       responses: {
         "200": {
           description: "get group by name successfully",
+        },
+      },
+    },
+  },
+
+  "/api/group/muted-by-name/{name}": {
+    post: {
+      tags: ["group"],
+      summary: "Muted group by name",
+      parameters: [
+        {
+          name: "name",
+          in: "path",
+          required: true,
+          schema: {
+            type: "string",
+            example: "Group name",
+          },
+        },
+      ],
+      responses: {
+        "200": {
+          description: "muted group by name successfully",
+        },
+      },
+    },
+  },
+
+  "/api/group/unmuted-by-name/{name}": {
+    post: {
+      tags: ["group"],
+      summary: "Unmuted group by name",
+      parameters: [
+        {
+          name: "name",
+          in: "path",
+          required: true,
+          schema: {
+            type: "string",
+            example: "Group name",
+          },
+        },
+      ],
+      responses: {
+        "200": {
+          description: "unmuted group by name successfully",
         },
       },
     },

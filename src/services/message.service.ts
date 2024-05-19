@@ -104,11 +104,9 @@ export class MessageService {
     const { message } = messageDto;
 
     const myContact = await this.contactService.getContactByName({ name });
+    const phone = myContact.id._serialized;
 
-    if (myContact.length >= 2) throw CustomError.badRequest("Exists two contact with similarity names");
-    const { phone } = myContact[0];
-
-    await this.whatsappClient.sendMessage(Parse.UserPhone(phone), message);
+    await this.whatsappClient.sendMessage(phone, message);
   };
 
   public getMessagesByContactName = async (nameDto: NameDto, limitDto: LimitDto) => {
@@ -117,12 +115,7 @@ export class MessageService {
 
     const myContact = await this.contactService.getContactByName({ name });
 
-    if (myContact.length >= 2) throw CustomError.badRequest("Exists two contact with similarity names");
-    const { phone } = myContact[0];
-
-    const myContactChat = await this.chatService.getUserChatByPhone({ phone });
-
-    const messages = await myContactChat.fetchMessages({
+    const messages = await myContact.fetchMessages({
       limit: limit,
     });
 
@@ -140,12 +133,8 @@ export class MessageService {
     const { message } = messageDto;
 
     const myGroup = await this.groupService.getGroupByName({ name });
-
-    if (myGroup.length >= 2) throw CustomError.badRequest("Exists two group with similarity names");
-
-    const { phone } = myGroup[0];
-
-    await this.whatsappClient.sendMessage(Parse.GroupPhone(phone), message);
+    const phone = myGroup.id._serialized;
+    await this.whatsappClient.sendMessage(phone, message);
   };
 
   public getMessagesByGroupName = async (nameDto: NameDto, limitDto: LimitDto) => {
@@ -154,12 +143,7 @@ export class MessageService {
 
     const myGroup = await this.groupService.getGroupByName({ name });
 
-    if (myGroup.length >= 2) throw CustomError.badRequest("Exists two contact with similarity names");
-    const { phone } = myGroup[0];
-
-    const myGroupChat = await this.chatService.getGroupChatByPhone({ phone });
-
-    const messages = await myGroupChat.fetchMessages({
+    const messages = await myGroup.fetchMessages({
       limit: limit,
     });
 

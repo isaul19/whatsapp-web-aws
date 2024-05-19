@@ -20,6 +20,9 @@ export class GroupRouter {
     router.get("/by-phone/:phone", paramsValidator(PhoneDto), groupController.getGroupByPhone);
     router.get("/by-name/:name", paramsValidator(NameDto), groupController.getGroupByName);
 
+    router.post("/muted-by-name/:name", paramsValidator(NameDto), groupController.mutedGroupByName);
+    router.post("/unmuted-by-name/:name", paramsValidator(NameDto), groupController.unmutedGroupByName);
+
     return router;
   }
 }

@@ -26,6 +26,13 @@ export class GroupService {
     return groupsLowInfo;
   };
 
+  private getAllGroups = async () => {
+    const chats = await this.whatsappClient.getChats();
+    const groups = chats.filter((chat) => chat.isGroup);
+
+    return groups;
+  };
+
   public createGroup = async (createGroupDto: CreateGroupDto) => {
     const { groupName, participantsPhones } = createGroupDto;
 
@@ -60,10 +67,25 @@ export class GroupService {
   public getGroupByName = async (nameDto: NameDto) => {
     const { name } = nameDto;
 
-    const groupsLow = await this.listAllGroups();
+    const groupsLow = await this.getAllGroups();
     const groups = groupsLow.filter((contact) => contact.name.toLowerCase().includes(name.toLowerCase()));
     if (groups.length === 0) throw CustomError.notFound(`Groups with name '${name}' not found`);
+    if (groups.length >= 2) throw CustomError.badRequest(`Exists two groups with name ${name}`);
 
-    return groups;
+    return groups[0];
+  };
+
+  public mutedGroupByName = async (nameDto: NameDto) => {
+    const { name } = nameDto;
+    const group = (await this.getGroupByName({ name })) as GroupChat;
+    const mutedDate = new Date();
+    mutedDate.setDate(mutedDate.getDate() + 1);
+    await group.mute(mutedDate);
+  };
+
+  public unmutedGroupByName = async (nameDto: NameDto) => {
+    const { name } = nameDto;
+    const group = (await this.getGroupByName({ name })) as GroupChat;
+    await group.unmute();
   };
 }
