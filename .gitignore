@@ -2,3 +2,4 @@ node_modules/
 .auth_session/
 dist/
 .env
+RemoteAuth-12345.zip
