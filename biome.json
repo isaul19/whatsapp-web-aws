@@ -4,7 +4,7 @@
     "enabled": true
   },
   "files": {
-    "ignore": ["dist/**", "node_modules/**", ".auth_session"]
+    "ignore": ["dist/**", "node_modules/**", ".auth_session/**"]
   },
   "linter": {
     "enabled": true,
