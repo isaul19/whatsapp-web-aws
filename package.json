@@ -2,12 +2,12 @@
   "name": "swc-express-typescript",
   "version": "1.0.0",
   "description": "",
-  "main": "src/index.ts",
+  "main": "src/main.ts",
   "scripts": {
     "build": "npm run lint && rm -rf ./dist && swc src --out-dir dist",
     "start": "node dist/main.js",
     "dev": "nodemon --watch src --ext ts --exec 'npm run build && npm start'",
-    "lint": "oxlint --tsconfig ./tsconfig.json -c ./oxlint.json --deny-warnings"
+    "lint": "oxlint --tsconfig ./tsconfig.json -c ./oxlint.json  --deny-warnings"
   },
   "keywords": [],
   "author": "",

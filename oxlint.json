@@ -8,6 +8,10 @@
     "sourceType": "module"
   },
   "rules": {
-    "eqeqeq": "error"
+    "no-eval": "error",
+    "eqeqeq": "error",
+    "no-var": "error",
+    "no-unsafe-optional-chaining": "error",
+    "no-empty": "error"
   }
 }
