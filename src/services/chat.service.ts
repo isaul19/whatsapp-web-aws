@@ -4,7 +4,7 @@ import { Whatsapp } from "@boostrap/whatsapp.boostrap";
 import { Parse } from "@utils/parse.util";
 import type { NameDto, PhoneDto } from "@dtos/_common";
 import { CustomError } from "@errors/custom.error";
-import { AMERICAN_USER, ID_AMERICAN_GROUP } from "@config/constants";
+import { AMERICAN_GROUP, AMERICAN_USER, ID_AMERICAN_GROUP } from "@config/constants";
 
 export class ChatService {
   private whatsappClient: Client;
@@ -48,7 +48,7 @@ export class ChatService {
   public getChatByGroupName = async (nameDto: NameDto): Promise<Chat> => {
     const { name } = nameDto;
     const chats = await this.whatsappClient.getChats();
-    const groups = chats.filter((chat) => chat.isGroup).filter((chat) => chat.id.server === ID_AMERICAN_GROUP);
+    const groups = chats.filter((chat) => chat.isGroup).filter((chat) => chat.id.server === AMERICAN_GROUP);
 
     let maxSimilarity = -1;
     let matchingGroup: Chat | null = null;
