@@ -5,7 +5,7 @@ import { MessageService } from "@services/message.service";
 import { bodyValidator } from "@validators/_common/body.validator";
 import { paramsValidator } from "@validators/_common/params.validator";
 import { queryValidator } from "@validators/_common/query.validator";
-import { LimitDto, MessageDto, NameDto, PhoneDto } from "@dtos/_common";
+import { LimitDto, MessageDto, NameDto } from "@dtos/_common";
 
 export class MessageRouter {
   public static get router() {
@@ -16,34 +16,6 @@ export class MessageRouter {
 
     router.get("/from-me", queryValidator(LimitDto), messageController.getMessagesFromMe);
     router.post("/from-me", bodyValidator(MessageDto), messageController.sendMessageFromMe);
-
-    router.get(
-      "/by-user-phone/:phone",
-      paramsValidator(PhoneDto),
-      queryValidator(LimitDto),
-      messageController.getMessageByUserPhone,
-    );
-
-    router.post(
-      "/by-user-phone/:phone",
-      paramsValidator(PhoneDto),
-      bodyValidator(MessageDto),
-      messageController.sendMessageByUserPhone,
-    );
-
-    router.get(
-      "/by-group-phone/:phone",
-      paramsValidator(PhoneDto),
-      queryValidator(LimitDto),
-      messageController.getMessageByGroupPhone,
-    );
-
-    router.post(
-      "/by-group-phone/:phone",
-      paramsValidator(PhoneDto),
-      bodyValidator(MessageDto),
-      messageController.sendMessageByGroupPhone,
-    );
 
     router.post(
       "/by-contact-name/:name",

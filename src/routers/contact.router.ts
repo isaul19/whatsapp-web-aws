@@ -12,9 +12,6 @@ export class ContactRouter {
     const contactService = new ContactService();
     const contactController = new ContactController(contactService);
 
-    router.get("/", contactController.listAllContacts);
-
-    router.get("/by-phone/:phone", paramsValidator(PhoneDto), contactController.getContactByPhone);
     router.get("/by-name/:name", paramsValidator(NameDto), contactController.getContactByName);
 
     return router;

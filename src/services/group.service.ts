@@ -1,38 +1,21 @@
 import type { Client, GroupChat } from "whatsapp-web.js";
 
 import { Whatsapp } from "@boostrap/whatsapp.boostrap";
-import { Parse } from "@utils/parse.util";
+import { ChatService } from "@services/chat.service";
 import { CustomError } from "@errors/custom.error";
+import { Parse } from "@utils/parse.util";
 
 import type { AddParticipantGroupDto, CreateGroupDto } from "@dtos/group";
-import type { NameDto, PhoneDto } from "@dtos/_common";
+import type { NameDto } from "@dtos/_common";
 
 export class GroupService {
   private whatsappClient: Client;
+  private chatService: ChatService;
 
   constructor() {
     this.whatsappClient = Whatsapp.client;
+    this.chatService = new ChatService();
   }
-
-  public listAllGroups = async () => {
-    const chats = await this.whatsappClient.getChats();
-    const groups = chats.filter((chat) => chat.isGroup);
-
-    const groupsLowInfo = groups.map((group, index) => ({
-      order: index + 1,
-      phone: group.id.user,
-      name: group.name,
-    }));
-
-    return groupsLowInfo;
-  };
-
-  private getAllGroups = async () => {
-    const chats = await this.whatsappClient.getChats();
-    const groups = chats.filter((chat) => chat.isGroup);
-
-    return groups;
-  };
 
   public createGroup = async (createGroupDto: CreateGroupDto) => {
     const { groupName, participantsPhones } = createGroupDto;
@@ -55,38 +38,13 @@ export class GroupService {
     }
   };
 
-  public getGroupByPhone = async (phoneDto: PhoneDto) => {
-    const { phone } = phoneDto;
-
-    const groupsLow = await this.listAllGroups();
-    const group = groupsLow.find((group) => group.phone === phone);
-    if (!group) throw CustomError.notFound(`Group with phone '${phone}' not found`);
-
-    return group;
-  };
-
-  public getGroupByName = async (nameDto: NameDto) => {
-    const { name } = nameDto;
-
-    const groupsLow = await this.getAllGroups();
-    const groups = groupsLow.filter((contact) => contact.name.toLowerCase().includes(name.toLowerCase()));
-    if (groups.length === 0) throw CustomError.notFound(`Groups with name '${name}' not found`);
-    if (groups.length >= 2) throw CustomError.badRequest(`Exists two groups with name ${name}`);
-
-    return groups[0];
-  };
-
   public mutedGroupByName = async (nameDto: NameDto) => {
-    const { name } = nameDto;
-    const group = (await this.getGroupByName({ name })) as GroupChat;
-    const mutedDate = new Date();
-    mutedDate.setDate(mutedDate.getDate() + 1);
-    await group.mute(mutedDate);
+    const group = await this.chatService.getChatByGroupName(nameDto);
+    await group.mute();
   };
 
   public unmutedGroupByName = async (nameDto: NameDto) => {
-    const { name } = nameDto;
-    const group = (await this.getGroupByName({ name })) as GroupChat;
+    const group = await this.chatService.getChatByGroupName(nameDto);
     await group.unmute();
   };
 }

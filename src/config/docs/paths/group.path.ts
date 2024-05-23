@@ -2,16 +2,6 @@ import { Paths } from "swagger-jsdoc";
 
 export const groupPath: Paths = {
   "/api/group": {
-    get: {
-      tags: ["group"],
-      summary: "Get all groups",
-      responses: {
-        "200": {
-          description: "get all groups successfully",
-        },
-      },
-    },
-
     post: {
       tags: ["group"],
       summary: "Create group",
@@ -42,52 +32,6 @@ export const groupPath: Paths = {
       responses: {
         "200": {
           description: "create group successfully",
-        },
-      },
-    },
-  },
-
-  "/api/group/by-phone/{phone}": {
-    get: {
-      tags: ["group"],
-      summary: "Get group by phone",
-      parameters: [
-        {
-          name: "phone",
-          in: "path",
-          required: true,
-          schema: {
-            type: "string",
-            example: "51777888999",
-          },
-        },
-      ],
-      responses: {
-        "200": {
-          description: "get group by phone successfully",
-        },
-      },
-    },
-  },
-
-  "/api/group/by-name/{name}": {
-    get: {
-      tags: ["group"],
-      summary: "Get group by name",
-      parameters: [
-        {
-          name: "name",
-          in: "path",
-          required: true,
-          schema: {
-            type: "string",
-            example: "Group name",
-          },
-        },
-      ],
-      responses: {
-        "200": {
-          description: "get group by name successfully",
         },
       },
     },

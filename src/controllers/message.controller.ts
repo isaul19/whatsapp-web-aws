@@ -10,46 +10,6 @@ export class MessageController {
     this.messageService = messageService;
   }
 
-  public sendMessageByUserPhone = async (req: Request, res: Response) => {
-    const { paramsValidator, bodyValidator } = req.body;
-    try {
-      await this.messageService.sendMessageByUserPhone(paramsValidator, bodyValidator);
-      return res.status(200).json({ message: "send message by user successfully" });
-    } catch (error) {
-      handleError(res, error);
-    }
-  };
-
-  public getMessageByUserPhone = async (req: Request, res: Response) => {
-    const { paramsValidator, queryValidator } = req.body;
-    try {
-      const response = await this.messageService.getMessageByUserPhone(paramsValidator, queryValidator);
-      res.status(200).json({ message: "get message by user successfully", data: response });
-    } catch (error) {
-      handleError(res, error);
-    }
-  };
-
-  public getMessageByGroupPhone = async (req: Request, res: Response) => {
-    const { paramsValidator, queryValidator } = req.body;
-    try {
-      const response = await this.messageService.getMessageByGroupPhone(paramsValidator, queryValidator);
-      res.status(200).json({ message: "get message by group phone successfully", data: response });
-    } catch (error) {
-      handleError(res, error);
-    }
-  };
-
-  public sendMessageByGroupPhone = async (req: Request, res: Response) => {
-    const { paramsValidator, bodyValidator } = req.body;
-    try {
-      await this.messageService.sendMessageByGroupPhone(paramsValidator, bodyValidator);
-      return res.status(200).json({ message: "send message by group phone successfully" });
-    } catch (error) {
-      handleError(res, error);
-    }
-  };
-
   public sendMessageFromMe = async (req: Request, res: Response) => {
     const { bodyValidator } = req.body;
     try {

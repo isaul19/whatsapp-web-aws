@@ -1,40 +1,6 @@
 import { Paths } from "swagger-jsdoc";
 
 export const chatPath: Paths = {
-  "/api/chat": {
-    get: {
-      tags: ["chat"],
-      summary: "Get all chats",
-      responses: {
-        "200": {
-          description: "get all chats successfully",
-        },
-      },
-    },
-  },
-
-  "/api/chat/by-phone/{phone}": {
-    get: {
-      tags: ["chat"],
-      summary: "Get chat by phone",
-      parameters: [
-        {
-          name: "phone",
-          in: "path",
-          required: true,
-          schema: {
-            type: "string",
-            example: "51777888999",
-          },
-        },
-      ],
-      responses: {
-        "200": {
-          description: "get chat by phone successfully",
-        },
-      },
-    },
-  },
   "/api/chat/me": {
     get: {
       tags: ["chat"],
@@ -42,6 +8,52 @@ export const chatPath: Paths = {
       responses: {
         "200": {
           description: "get my chat successfully",
+        },
+      },
+    },
+  },
+
+  "/api/chat/by-contact-name/{name}": {
+    get: {
+      tags: ["chat"],
+      summary: "Get chat by contact name",
+      parameters: [
+        {
+          name: "name",
+          in: "path",
+          required: true,
+          schema: {
+            type: "string",
+            example: "contact name",
+          },
+        },
+      ],
+      responses: {
+        "200": {
+          description: "get chat by contact name successfully",
+        },
+      },
+    },
+  },
+
+  "/api/chat/by-group-name/{name}": {
+    get: {
+      tags: ["chat"],
+      summary: "Get chat by group name",
+      parameters: [
+        {
+          name: "name",
+          in: "path",
+          required: true,
+          schema: {
+            type: "string",
+            example: "group name",
+          },
+        },
+      ],
+      responses: {
+        "200": {
+          description: "get chat by group name successfully",
         },
       },
     },

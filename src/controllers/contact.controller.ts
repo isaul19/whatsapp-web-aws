@@ -10,25 +10,6 @@ export class ContactController {
     this.contactService = contactService;
   }
 
-  public listAllContacts = async (req: Request, res: Response) => {
-    try {
-      const response = await this.contactService.listAllContacts();
-      res.status(200).json({ message: "get contacts successfully", data: response });
-    } catch (error) {
-      handleError(res, error);
-    }
-  };
-
-  public getContactByPhone = async (req: Request, res: Response) => {
-    const { paramsValidator } = req.body;
-    try {
-      const response = await this.contactService.getContactByPhone(paramsValidator);
-      res.status(200).json({ message: "get contact by phone successfully", data: response });
-    } catch (error) {
-      handleError(res, error);
-    }
-  };
-
   public getContactByName = async (req: Request, res: Response) => {
     const { paramsValidator } = req.body;
     try {

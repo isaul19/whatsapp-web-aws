@@ -10,29 +10,30 @@ export class ChatController {
     this.chatService = chatService;
   }
 
-  public listAllChats = async (req: Request, res: Response) => {
-    try {
-      const response = await this.chatService.listAllChats();
-      res.status(200).json({ message: "get chats successfully", data: response });
-    } catch (error) {
-      handleError(res, error);
-    }
-  };
-
-  public getChatByPhone = async (req: Request, res: Response) => {
-    const { paramsValidator } = req.body;
-    try {
-      const response = await this.chatService.getUserChatByPhone(paramsValidator);
-      res.status(200).json({ message: "get chat successfully", data: response });
-    } catch (error) {
-      handleError(res, error);
-    }
-  };
-
   public getMyChat = async (req: Request, res: Response) => {
     try {
       const response = await this.chatService.getMyChat();
       res.status(200).json({ message: "get my chat successfully", data: response });
+    } catch (error) {
+      handleError(res, error);
+    }
+  };
+
+  public getChatByContactName = async (req: Request, res: Response) => {
+    const { paramsValidator } = req.body;
+    try {
+      const response = await this.chatService.getChatByContactName(paramsValidator);
+      res.status(200).json({ message: "get chat by contact name successfully", data: response });
+    } catch (error) {
+      handleError(res, error);
+    }
+  };
+
+  public getChatByGroupName = async (req: Request, res: Response) => {
+    const { paramsValidator } = req.body;
+    try {
+      const response = await this.chatService.getChatByGroupName(paramsValidator);
+      res.status(200).json({ message: "get chat by group name successfully", data: response });
     } catch (error) {
       handleError(res, error);
     }
