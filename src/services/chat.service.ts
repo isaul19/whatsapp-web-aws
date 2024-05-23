@@ -9,6 +9,7 @@ import { AMERICAN_GROUP, AMERICAN_USER } from "@config/constants";
 
 export class ChatService {
   private whatsappClient: Client;
+  private MIN_SIMILARITY = 0.5;
 
   constructor() {
     this.whatsappClient = Whatsapp.client;
@@ -39,7 +40,7 @@ export class ChatService {
       }
     }
 
-    if (!matchingContact) {
+    if (!matchingContact || maxSimilarity < this.MIN_SIMILARITY) {
       throw CustomError.notFound(`Contact with name '${name}' not found`);
     }
 
@@ -67,7 +68,7 @@ export class ChatService {
       }
     }
 
-    if (!matchingGroup) {
+    if (!matchingGroup || maxSimilarity < this.MIN_SIMILARITY) {
       throw CustomError.notFound(`Group with name '${name}' not found`);
     }
 

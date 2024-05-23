@@ -21,8 +21,9 @@ export class GroupController {
   };
 
   public addParticipantsGroup = async (req: Request, res: Response) => {
+    const { bodyValidator } = req.body;
     try {
-      await this.groupService.addParticipantsGroup(req.body);
+      await this.groupService.addParticipantsGroup(bodyValidator);
       return res.status(200).json({ message: "add participant group successfully" });
     } catch (error) {
       handleError(res, error);

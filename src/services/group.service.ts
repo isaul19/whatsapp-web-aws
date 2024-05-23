@@ -2,7 +2,6 @@ import type { Client, GroupChat } from "whatsapp-web.js";
 
 import { Whatsapp } from "@boostrap/whatsapp.boostrap";
 import { ChatService } from "@services/chat.service";
-import { CustomError } from "@errors/custom.error";
 import { Parse } from "@utils/parse.util";
 
 import type { AddParticipantGroupDto, CreateGroupDto } from "@dtos/group";
@@ -18,24 +17,17 @@ export class GroupService {
   }
 
   public createGroup = async (createGroupDto: CreateGroupDto) => {
-    const { groupName, participantsPhones } = createGroupDto;
-
-    const participants = participantsPhones.map((phone) => Parse.UserPhone(phone));
-    const group = await this.whatsappClient.createGroup(groupName, participants);
+    const { groupName, contactNames } = createGroupDto;
+    const contactsIds = await this.getContactsIds(contactNames);
+    const group = await this.whatsappClient.createGroup(groupName, contactsIds);
     return group;
   };
 
   public addParticipantsGroup = async (addParticipantGroupDto: AddParticipantGroupDto) => {
-    const { idGroup, participantsPhones } = addParticipantGroupDto;
-
-    const chat = await Whatsapp.client.getChatById(idGroup);
-    if (!chat) throw CustomError.notFound(`Group with id '${idGroup}' not found`);
-
-    if (chat.isGroup) {
-      const groupChat = chat as GroupChat;
-      const participants = participantsPhones.map((phone) => Parse.UserPhone(phone));
-      await groupChat.addParticipants(participants);
-    }
+    const { groupName, contactNames } = addParticipantGroupDto;
+    const group = (await this.chatService.getChatByGroupName({ name: groupName })) as GroupChat;
+    const contactsIds = await this.getContactsIds(contactNames);
+    await group.addParticipants(contactsIds);
   };
 
   public mutedGroupByName = async (nameDto: NameDto) => {
@@ -46,5 +38,16 @@ export class GroupService {
   public unmutedGroupByName = async (nameDto: NameDto) => {
     const group = await this.chatService.getChatByGroupName(nameDto);
     await group.unmute();
+  };
+
+  private getContactsIds = async (contactsName: string[]): Promise<string[]> => {
+    const contactsIds = await Promise.all(
+      contactsName.map(async (contactName) => {
+        const contacts = await this.chatService.getChatByContactName({ name: contactName });
+        return contacts.id._serialized;
+      }),
+    );
+
+    return contactsIds;
   };
 }

@@ -1,10 +1,12 @@
-import { Regexp } from "@utils/regexp.util";
-import { IsString, Matches } from "class-validator";
+import { IsArray, IsString, MinLength } from "class-validator";
 
 export class AddParticipantGroupDto {
   @IsString()
-  idGroup!: string;
+  @MinLength(3)
+  groupName!: string;
 
-  @Matches(Regexp.phone, { each: true, message: "The phone number must have at least 11 numeric digits" })
-  participantsPhones!: string[];
+  @IsArray()
+  @IsString({ each: true })
+  @MinLength(2, { each: true })
+  contactNames!: string[];
 }

@@ -12,19 +12,19 @@ export const groupPath: Paths = {
             schema: {
               type: "object",
               properties: {
-                name: {
+                groupName: {
                   type: "string",
                   example: "Group name",
                 },
-                participantsPhones: {
+                contactNames: {
                   type: "array",
                   items: {
-                    type: "number",
+                    type: "string",
                   },
-                  example: [51777888999],
+                  example: ["friend1", "friend2"],
                 },
               },
-              required: ["name", "participantsPhones"],
+              required: ["groupName", "contactNames"],
             },
           },
         },
@@ -32,6 +32,42 @@ export const groupPath: Paths = {
       responses: {
         "200": {
           description: "create group successfully",
+        },
+      },
+    },
+  },
+
+  "/api/group/add-participants": {
+    post: {
+      tags: ["group"],
+      summary: "Add participants to group",
+      requestBody: {
+        required: true,
+        content: {
+          "application/json": {
+            schema: {
+              type: "object",
+              properties: {
+                groupName: {
+                  type: "string",
+                  example: "Group name",
+                },
+                contactNames: {
+                  type: "array",
+                  items: {
+                    type: "string",
+                  },
+                  example: ["friend1", "friend2"],
+                },
+              },
+              required: ["groupName", "contactNames"],
+            },
+          },
+        },
+      },
+      responses: {
+        "200": {
+          description: "add participants to group successfully",
         },
       },
     },

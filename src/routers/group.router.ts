@@ -6,6 +6,7 @@ import { GroupService } from "@services/group.service";
 import { bodyValidator } from "@validators/_common/body.validator";
 import { paramsValidator } from "@validators/_common/params.validator";
 import { NameDto, PhoneDto } from "@dtos/_common";
+import { AddParticipantGroupDto } from "@dtos/group";
 
 export class GroupRouter {
   public static get router() {
@@ -15,6 +16,7 @@ export class GroupRouter {
     const groupController = new GroupController(groupService);
 
     router.post("/", bodyValidator(CreateGroupDto), groupController.createGroup);
+    router.post("/add-participants", bodyValidator(AddParticipantGroupDto), groupController.addParticipantsGroup);
 
     router.post("/muted-by-name/:name", paramsValidator(NameDto), groupController.mutedGroupByName);
     router.post("/unmuted-by-name/:name", paramsValidator(NameDto), groupController.unmutedGroupByName);
