@@ -1,10 +1,11 @@
 import { compareTwoStrings } from "string-similarity";
-import type { Chat, Client, Contact } from "whatsapp-web.js";
+import type { Client, Contact } from "whatsapp-web.js";
+import type { Chat } from "@interfaces/whatsapp.interface";
 import { Whatsapp } from "@boostrap/whatsapp.boostrap";
 import { Parse } from "@utils/parse.util";
-import type { NameDto, PhoneDto } from "@dtos/_common";
+import type { NameDto } from "@dtos/_common";
 import { CustomError } from "@errors/custom.error";
-import { AMERICAN_GROUP, AMERICAN_USER, ID_AMERICAN_GROUP } from "@config/constants";
+import { AMERICAN_GROUP, AMERICAN_USER } from "@config/constants";
 
 export class ChatService {
   private whatsappClient: Client;
@@ -21,7 +22,8 @@ export class ChatService {
 
   public getChatByContactName = async (nameDto: NameDto): Promise<Chat> => {
     const { name } = nameDto;
-    const contacts = (await this.whatsappClient.getContacts()).filter((contact) => contact.id.server === AMERICAN_USER);
+    const Allcontacts = await this.whatsappClient.getContacts();
+    const contacts = Allcontacts.filter((contact) => contact.id.server === AMERICAN_USER);
 
     let maxSimilarity = -1;
     let matchingContact: Contact | null = null;
@@ -41,7 +43,8 @@ export class ChatService {
       throw CustomError.notFound(`Contact with name '${name}' not found`);
     }
 
-    const chat = await matchingContact.getChat();
+    const chat = (await matchingContact.getChat()) as Chat;
+    chat.lastMessage = undefined;
     return chat;
   };
 
@@ -68,7 +71,8 @@ export class ChatService {
       throw CustomError.notFound(`Group with name '${name}' not found`);
     }
 
-    const chat = matchingGroup;
+    const chat = matchingGroup as Chat;
+    chat.lastMessage = undefined;
     return chat;
   };
 
